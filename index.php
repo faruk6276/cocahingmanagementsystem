@@ -89,65 +89,85 @@ if(isset($_SESSION['id'])){
 
     <head>
         <meta charset="UTF-8">
-        <title>CIMS</title>
+        <title>Coaching Management System</title>
 
 
         <link rel='stylesheet prefetch'
               href='https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css'>
 
         <link rel="stylesheet" href="css/style.css">
+           <!-- Required meta tags -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap"
+      rel="stylesheet"
+    />
 
+    <link rel="stylesheet" href="fonts/icomoon/style.css" />
+
+    <link rel="stylesheet" href="css/owl.carousel.min.css" />
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+
+    <!-- Style -->
+    <link rel="stylesheet" href="css/style.css" />
 
     </head>
 
     <body>
-
-    <div class='brand'>
-        <a href='#' target='_blank'>
-            <img src='images/logo.png'>
-        </a>
-    </div>
     <?php if ($successful == "false") {
         ?>
-        <div class='login'>
-            <div class='login_title'>
-                <span>Login to your account</span><br>
-                <span style="color:red"><?php echo $error; ?></span>
+        <div class="content">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <img
+              src="images/undraw_remotely_2j6y.svg"
+              alt="Image"
+              class="img-fluid"
+            />
+          </div>
+          <div class="col-md-6 contents">
+            <div class="row justify-content-center">
+              <div class="col-md-8">
+                <div class="mb-4">
+                  <h3>Sign In</h3>
+                  <p class="mb-4">
+                    We are the best coaching center in our area with our experts teachers.
+                  </p>
+                </div>
+                <form action="#" method="post">
+                <span style="color:red"><?php echo $error; ?></span> 
+                  <div class="form-group first">
+                    <label for="username">Username</label>
+                    <input type="text" class="form-control" id="username" name="username"/>
+                  </div>
+                  <div class="form-group last mb-4">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" name="password" />
+                  </div>
 
-            </div>
-            <div class='login_fields'>
-                <form action="index.php" method="post">
-                    <div class='login_fields__user'>
-                        <div class='icon'>
-                            <img src='images/user_icon_copy.png'>
-                        </div>
-                        <input placeholder='EID/SID/PID' type='text' name="username">
-                        <div class='validation'>
-                            <img src='images/tick.png'>
-                        </div>
-                        </input>
-                    </div>
-                    <div class='login_fields__password'>
-                        <div class='icon'>
-                            <img src='images/lock_icon_copy.png'>
-                        </div>
-                        <input placeholder='Password' type='password' name="password">
-                        <div class='validation'>
-                            <img src='images/tick.png'>
-                        </div>
-                    </div>
-                    <div class='login_fields__submit'>
-                        <input type='submit' value='Log In' name="login">
-                    </div>
+                 
+
+                  <input
+                    type="submit"
+                    value="Log In"
+                    name="login"
+                    class="btn btn-block btn-primary"
+                  />
                 </form>
+              </div>
             </div>
+          </div>
+        </div>
+      </div>
+    </div>
         
     <?php } ?>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-    <script src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js'></script>
-
-
-    <script src="js/index.js"></script>
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/main.js"></script>
 
 
     </body>
