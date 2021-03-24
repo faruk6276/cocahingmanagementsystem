@@ -1,8 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- 
- */
 
     session_start();
     session_unset();

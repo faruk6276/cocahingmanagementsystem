@@ -1,9 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- 
- */
-
 session_start();
 if(isset($_SESSION['id']) && isset($_SESSION['username'])){
     include("../../config/database.php");
