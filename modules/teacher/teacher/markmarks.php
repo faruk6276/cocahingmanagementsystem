@@ -17,7 +17,6 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
     if($row = mysqli_fetch_assoc($result)){
         $fname= ucfirst($row['fname']);
         $lname = ucfirst($row['lname']);
-        $center = $row['center'];
         $course = $row['course'];
         $status = $row['status'];
         $subject = $row['subject'];
@@ -32,7 +31,6 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
             <link rel="stylesheet" type="text/css" href="css/style.css">
         </head>
         <body>
-        <h2 align="center" style="color: blue"><?php echo ucfirst($center) . ' (' . strtoupper($course) . ')' ?></h2>
         <div class="header">
 
             <span style="font-size:30px;cursor:pointer" class="logo" onclick="openNav()">&#9776; open </span>
@@ -64,7 +62,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
         <div align="center">
             <form method="get">
             <?php
-            $sql_get_batches = "SELECT DISTINCT batch FROM tea_batche WHERE eid ='$eid' AND subject = '$subject' AND center = '$center' AND course = '$course'";
+            $sql_get_batches = "SELECT DISTINCT batch FROM tea_batche WHERE eid ='$eid' AND subject = '$subject' ";
             $sql_check_batches = mysqli_query($conn,$sql_get_batches);
             $sql_check_result_batch = mysqli_num_rows($sql_check_batches);
             if($sql_check_result_batch>0)
@@ -76,7 +74,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
                 <?php  }
                 echo '</select>';
             }
-            $sql_get_batches1 = "SELECT DISTINCT examname FROM exams WHERE center = '$center' AND course = '$course'";
+            $sql_get_batches1 = "SELECT DISTINCT examname FROM exams";
             $sql_check_batches1 = mysqli_query($conn,$sql_get_batches1);
             $sql_check_result_batch1 = mysqli_num_rows($sql_check_batches1);
             if($sql_check_result_batch1>0)
@@ -88,7 +86,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
                 <?php  }
                 echo '</select>';
             }
-            $sql_get_batches1 = "SELECT DISTINCT dateofexam FROM exams WHERE center = '$center' AND course = '$course'";
+            $sql_get_batches1 = "SELECT DISTINCT dateofexam FROM exams";
             $sql_check_batches1 = mysqli_query($conn,$sql_get_batches1);
             $sql_check_result_batch1 = mysqli_num_rows($sql_check_batches1);
             if($sql_check_result_batch1>0)
@@ -116,7 +114,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
         $subject_get = $subject;
         $marks_get = mysqli_real_escape_string($conn,$_GET['marks']);
 
-        $sql_search_student = "SELECT * FROM students WHERE batch = '$batch_get' AND center = '$center' AND course = '$course'";
+        $sql_search_student = "SELECT * FROM students WHERE batch = '$batch_get'";
         $sql_search_student_check = mysqli_query($conn,$sql_search_student);
         $sql_search_student_check_result = mysqli_num_rows($sql_search_student_check);
         if($sql_search_student_check_result > 0){ ?>
@@ -154,11 +152,11 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
                if($insert_check_check_result > 0){
                    echo '<script>alert("Marks Already Marked");</script>';
                }else {
-                   $check_query = "SELECT * FROM exams WHERE examname = '$examname_get' AND batch = '$batch_get' AND center = '$center' AND course = '$course'";
+                   $check_query = "SELECT * FROM exams WHERE examname = '$examname_get' AND batch = '$batch_get'";
                    $check_query_result = mysqli_query($conn,$check_query);
                    $row = mysqli_fetch_assoc($check_query_result);
                    if($examdate_get == $row['dateofexam']) {
-                       $insert_query = "INSERT INTO marks (sid,course,subject,examname,marksobtain,totalmarks,eid,center,batch,dateofexam) VALUES ('$sid_get','$course','$subject','$examname_get','$marksobtain_get','$marks_get','$eid_insert','$center','$batch_get','$examdate_get')";
+                       $insert_query = "INSERT INTO marks (sid,course,subject,examname,marksobtain,totalmarks,eid,batch,dateofexam) VALUES ('$sid_get','$course','$subject','$examname_get','$marksobtain_get','$marks_get','$eid_insert','$batch_get','$examdate_get')";
                        $insert_query_cek = mysqli_query($conn, $insert_query);
 
                        echo '<script>alert("Marks Marked Successfully");</script>';

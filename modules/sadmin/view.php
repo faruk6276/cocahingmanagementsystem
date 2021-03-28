@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- 
- */
-
-
-
 session_start();
 if(isset($_SESSION['id']) && isset($_SESSION['username'])){
 include("../../config/database.php");
@@ -17,7 +10,6 @@ $resultcheck = mysqli_num_rows($result);
 if($row = mysqli_fetch_assoc($result)){
     $fname= ucfirst($row['fname']);
     $lname = ucfirst($row['lname']);
-    $center = $row['center'];
     $course = $row['course'];
     $status = $row['status'];
 }
@@ -122,8 +114,8 @@ if($status == 'yes' || $status == 'Yes') {
                     <p><b>Name: </b><?php echo $as['fname'].' '.$as['lname']; ?></p>
                     <p><b>Email: </b><?php echo $as['email']; ?> &nbsp;&nbsp; <b>Mobile: </b><?php echo $as['phone']; ?> </p>
                     <p><b>Address: </b><?php echo $as['address'].', '.$as['district'],', '.$as['state'],', '.$as['postalcode']; ?></p>
-                    <p><b>Total Fees: </b><?php echo $as['fee'] ;?> &nbsp;&nbsp; <b>Scholarship: </b><?php echo $as['scholarship'].'%';?></p>
-                    <p><b>Center: </b><?php echo ucfirst($as['center']); ?> &nbsp;&nbsp; <b>Course: </b><?php echo $as['course'];?> </p>
+                    <p><b>Total Fees: </b><?php echo $as['fee'] ;?></p>
+                    <p><b>Course: </b><?php echo $as['course'];?> </p>
                     <p><b>Mentor EID: </b><?php echo $as['mentor'];?> &nbsp;&nbsp; <b>PID: </b><?php echo $as['pid'] ;?></p>
                     <p><b>Timmings: </b><?php echo $as['timing'] ;?></p>
                     <p><b>Date Of Reg.: </b><?php echo $as['dateofreg'] ;?></p>
@@ -158,7 +150,7 @@ if($status == 'yes' || $status == 'Yes') {
                          <p><b>Email: </b><?php echo $as['email']; ?> &nbsp;&nbsp; <b>Mobile: </b><?php echo $as['mobile']; ?> </p>
                          <p><b>Address: </b><?php echo $as['address'].', '.$as['city'],', '.$as['state'],', '.$as['postalcode']; ?></p>
                          <p><b>Salary: </b><?php echo $as['salary'] ;?> &nbsp;&nbsp; <b>Position : </b><?php echo $as['position'];?></p>
-                         <p><b>Center: </b><?php echo ucfirst($as['center']); ?> &nbsp;&nbsp; <b>Course: </b><?php echo $as['course'];?> </p>
+                         <b>Course: </b><?php echo $as['course'];?> </p>
                          <p><b>Subject : </b><?php echo $as['subject'];?> &nbsp;&nbsp; <b>Experience: </b><?php echo $as['experience'] ;?></p>
                          <p><b>Date Of joining.: </b><?php echo $as['dateofjoining'] ;?></p>
                      </div>
@@ -167,17 +159,8 @@ if($status == 'yes' || $status == 'Yes') {
              }
     }
     if(isset($_GET['batch'])){ ?>
-        <div align="center">
-            <h3>Batch Details</h3>
-            <form method="post">
-                <b>Center ID: </b><input type="text" name="centerid" placeholder="Enter Center ID"><br>
-                <input type="submit" name="search_batch" value="Search">
-            </form>
-        </div>
     <?php
-        if(isset($_POST['search_batch'])){
-            $get_center = mysqli_real_escape_string($conn,$_POST['centerid']);
-            $get_batch = "SELECT * FROM batches WHERE center='$get_center' ORDER BY batch";
+            $get_batch = "SELECT * FROM batches ORDER BY batch";
             $get_batch_q = mysqli_query($conn,$get_batch);
             $get_batch_q_check = mysqli_num_rows($get_batch_q);
             if($get_batch_q_check <=0){
@@ -202,7 +185,7 @@ if($status == 'yes' || $status == 'Yes') {
                 </div>
             <?php }
         }
-    }
+    
 ?>
 
 <script>

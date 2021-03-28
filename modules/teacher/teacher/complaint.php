@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Bharat
- * Date: 7/1/2018
- * Time: 3:07 AM
- */
 session_start();
 if(isset($_SESSION['id']) && isset($_SESSION['username'])){
     include("../../../config/database.php");
@@ -16,12 +10,11 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
     if ($row = mysqli_fetch_assoc($result)) {
         $fname = ucfirst($row['fname']);
         $lname = ucfirst($row['lname']);
-        $center = $row['center'];
         $course = $row['course'];
     }
     $ydate = date('Y-m-d');
 $day = date("l");
-$find_admin_sql = "SELECT * FROM teachers WHERE position = 'admin' AND center = '$center' AND course = '$course'";
+$find_admin_sql = "SELECT * FROM teachers WHERE position = 'admin'";
 $find_admin_result = mysqli_query($conn,$find_admin_sql);
 $find_admin_result_check = mysqli_num_rows($find_admin_result);
 if($findrows = mysqli_fetch_assoc($find_admin_result)){
@@ -38,7 +31,6 @@ if($findrows = mysqli_fetch_assoc($find_admin_result)){
     <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
-<h2 align="center" style="color: blue"><?php echo ucfirst($center) . ' (' . strtoupper($course) . ')' ?></h2>
 <div class="header">
 
     <span style="font-size:30px;cursor:pointer" class="logo" onclick="openNav()">&#9776; open </span>
@@ -91,7 +83,7 @@ if($findrows = mysqli_fetch_assoc($find_admin_result)){
             <th>See Reply</th>
         </tr>
         <?php
-        $complaint_sql = "SELECT * FROM complaint WHERE username = '$eid' AND center = '$center' AND course = '$course'";
+        $complaint_sql = "SELECT * FROM complaint WHERE username = '$eid'";
         $complaint_sql_result = mysqli_query($conn,$complaint_sql);
         $complaint_sql_result_check = mysqli_num_rows($complaint_sql_result);
         $i=0;
@@ -171,7 +163,7 @@ if($findrows = mysqli_fetch_assoc($find_admin_result)){
         $subject = $_POST['subject'];
         $compl = $_POST['complaint'];
         $date_of_complaint = date("Y-m-d");
-        $sql_comp = "INSERT INTO complaint (eid,teacher_type,username,center,course,subject,complaint,dateofcomp) VALUES ('$eid_type','$teacher','$eid','$center','$course','$subject','$compl','$date_of_complaint')";
+        $sql_comp = "INSERT INTO complaint (eid,teacher_type,username,course,subject,complaint,dateofcomp) VALUES ('$eid_type','$teacher','$eid','$course','$subject','$compl','$date_of_complaint')";
         $sql_comp_result = mysqli_query($conn,$sql_comp);
         if($sql_comp_result){
             echo '<script>alert("Successful")</script>';

@@ -27,7 +27,6 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
         $position = $rows['position'];
         $subject = $rows['subject'];
         $status = $rows['status'];
-        $center = $rows['center'];
         $course = $rows['course'];
         $batchmentor = $rows['batchmentor'];
         if(isset($rows['highestqualification'])){
@@ -57,7 +56,6 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
         </style>
     </head>
     <body>
-    <h2 align="center" style="color: blue"><?php echo ucfirst($center) . ' (' . strtoupper($course) . ')' ?></h2>
     <div class="header">
 
         <span style="font-size:30px;cursor:pointer" class="logo" onclick="openNav()">&#9776; open </span>
@@ -97,7 +95,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
                         <li><p><span class="glyphicon glyphicon-ok-sign" style="width:50px;"></span><?php echo $eid.' ('.ucfirst($subject).')'; ?></p></li>
                         <li><p><span class="glyphicon glyphicon-earphone one" style="width:50px;"></span><?php echo '+91 '.$mobile; ?></p></li>
                         <li><p><span class="glyphicon glyphicon-envelope one" style="width:50px;"></span><?php echo $email; ?></p></li>
-                        <li><p><span class="glyphicon glyphicon-map-marker one" style="width:50px;"></span><?php echo ucfirst($center).'('.strtoupper($course).')' ?></p></li>
+                        <li><p><span class="glyphicon glyphicon-map-marker one" style="width:50px;"></span><?php echo '('.strtoupper($course).')' ?></p></li>
                         <li><p><span class="glyphicon glyphicon-tower" style="width:50px;"></span><?php echo "Date Of Joining: ".$date_of_joinig; ?></p></li>
                     </ul>
                 </div>

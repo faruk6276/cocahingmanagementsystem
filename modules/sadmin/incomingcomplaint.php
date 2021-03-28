@@ -1,9 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- 
- */
-
 session_start();
 if(isset($_SESSION['id']) && isset($_SESSION['username'])){
 include("../../config/database.php");
@@ -15,7 +10,6 @@ $resultcheck = mysqli_num_rows($result);
 if($row = mysqli_fetch_assoc($result)){
     $fname= ucfirst($row['fname']);
     $lname = ucfirst($row['lname']);
-    $center = $row['center'];
     $course = $row['course'];
     $status = $row['status'];
 }

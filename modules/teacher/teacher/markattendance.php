@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Bharat
- * Date: 6/30/2018
- * Time: 11:41 AM
- */
-
 session_start();
 if(isset($_SESSION['id']) && isset($_SESSION['username'])){
     include("../../../config/database.php");
@@ -17,7 +10,6 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
     if($row = mysqli_fetch_assoc($result)){
         $fname= ucfirst($row['fname']);
         $lname = ucfirst($row['lname']);
-        $center = $row['center'];
         $course = $row['course'];
         $status = $row['status'];
         $subject = $row['subject'];
@@ -32,7 +24,6 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
             <link rel="stylesheet" type="text/css" href="css/style.css">
         </head>
         <body>
-        <h2 align="center" style="color: blue"><?php echo ucfirst($center) . ' (' . strtoupper($course) . ')' ?></h2>
         <div class="header">
 
             <span style="font-size:30px;cursor:pointer" class="logo" onclick="openNav()">&#9776; open </span>
@@ -69,7 +60,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
         <?php
         $get_day = date("l");
         $date = date('Y-m-d');
-            $sql_get = "SELECT DISTINCT batch FROM timetable WHERE eid = '$eid' AND course = '$course' AND subject = '$subject' AND center = '$center' AND day='$get_day'";
+            $sql_get = "SELECT DISTINCT batch FROM timetable WHERE eid = '$eid'  AND subject = '$subject' AND day='$get_day'";
             $sql_get_result = mysqli_query($conn,$sql_get);
             $sql_get_result_check = mysqli_num_rows($sql_get_result);
             if($sql_get_result_check>0)
@@ -83,7 +74,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
                <?php } ?>
                 </select>
                 <?php
-                $sql_get1 = "SELECT DISTINCT timing FROM timetable WHERE eid = '$eid' AND course = '$course' AND subject = '$subject' AND center = '$center' AND day='$get_day'";
+                $sql_get1 = "SELECT DISTINCT timing FROM timetable WHERE eid = '$eid' AND subject = '$subject' AND day='$get_day'";
                 $sql_get_result1 = mysqli_query($conn,$sql_get1);
                 ?>
                &nbsp;&nbsp; <b>Timings: </b><select name="timings" required>
@@ -111,7 +102,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
             $timings_get =$_GET['timings'];
             $date_get = $date;
 
-            $sql_get_students = "SELECT * FROM students WHERE batch = '$batch_get' AND course = '$course' AND center = '$center'";
+            $sql_get_students = "SELECT * FROM students WHERE batch = '$batch_get' ";
             $sql_get_students_result = mysqli_query($conn,$sql_get_students);
             $sql_get_students_result_check =mysqli_num_rows($sql_get_students_result);
             if($sql_get_students_result_check>0){
@@ -150,14 +141,14 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
                         $center_insert = $center;
                         $subject_insert = $subject;
                         $course_insert = $course;
-                        $sql_check_att = "SELECT * FROM attendance WHERE sid ='$sid_get' AND date = '$date_insert' AND subject='$subject' AND timing = '$timings_insert' AND center='$center_insert' ";
+                        $sql_check_att = "SELECT * FROM attendance WHERE sid ='$sid_get' AND date = '$date_insert' AND subject='$subject' AND timing = '$timings_insert'";
                         $sql_check_att_query = mysqli_query($conn,$sql_check_att);
                         $check = mysqli_num_rows($sql_check_att_query);
                         if($check >0)
                         {
                             echo '<script>alert("Attendance Already Marked");</script>';
                         }else {
-                            $sql_insert = "INSERT INTO attendance (sid, date,timing, eid, batch, status, center, course, subject) VALUES ('$sid_get', '$date_insert', '$timings_insert', '$eid_insert', '$batch_insert', '$status_insert', '$center_insert','$course_insert','$subject_insert')";
+                            $sql_insert = "INSERT INTO attendance (sid, date,timing, eid, batch, status, course, subject) VALUES ('$sid_get', '$date_insert', '$timings_insert', '$eid_insert', '$batch_insert', '$status_insert', '$course_insert','$subject_insert')";
                             $sql_insert_query = mysqli_query($conn, $sql_insert);
                             echo '<script>alert("Attendance Marked Successfully");</script>';
                         }

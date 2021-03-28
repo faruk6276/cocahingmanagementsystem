@@ -14,7 +14,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
     if ($row = mysqli_fetch_assoc($result)) {
         $fname = ucfirst($row['fname']);
         $lname = ucfirst($row['lname']);
-        $center = $row['center'];
+        #$center = $row['center'];
         $course = $row['course'];
     }
     $ydate = date('Y-m-d');
@@ -36,7 +36,6 @@ if($findrows = mysqli_fetch_assoc($find_admin_result)){
     <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
-<h2 align="center" style="color: blue"><?php echo ucfirst($center) . ' (' . strtoupper($course) . ')' ?></h2>
 <div class="header">
 
     <span style="font-size:30px;cursor:pointer" class="logo" onclick="openNav()">&#9776; open </span>
@@ -90,7 +89,7 @@ if($findrows = mysqli_fetch_assoc($find_admin_result)){
             <th>See Reply</th>
         </tr>
         <?php
-        $complaint_sql = "SELECT * FROM complaint WHERE username = '$eid' AND center = '$center' AND course = '$course'";
+        $complaint_sql = "SELECT * FROM complaint WHERE username = '$eid'";
         $complaint_sql_result = mysqli_query($conn,$complaint_sql);
         $complaint_sql_result_check = mysqli_num_rows($complaint_sql_result);
         $i=0;

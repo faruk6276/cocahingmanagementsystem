@@ -12,7 +12,6 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
     if($row = mysqli_fetch_assoc($result)){
         $fname= ucfirst($row['fname']);
         $lname = ucfirst($row['lname']);
-        $center = $row['center'];
         $course = $row['course'];
         $status = $row['status'];
     }
@@ -63,7 +62,6 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
             </style>
         </head>
         <body>
-        <h2 align="center" style="color: blue"><?php echo ucfirst($center) . ' (' . strtoupper($course) . ')' ?></h2>
         <div class="header">
 
             <span style="font-size:30px;cursor:pointer" class="logo" onclick="openNav()">&#9776; open </span>
@@ -122,17 +120,14 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
                             <b>Position: </b><select name="position">
                                 <option value="none">Select Position</option>
                                 <option value="mentor">Mentor</option>
-                                <option value="hod">HOD</option>
                                 <option value="teacher">Teacher</option>
                             </select>
                             <hr width="80%">
                             <br><b>Salary:</b> <input type="text" name="salary" placeholder="Salary Per Month">
                             &nbsp;&nbsp;<b>Subject:</b> <input type="text" name="subject"
                                                                    placeholder="Subject">
-                            <br><b>Course:</b> <input type="text" name="course" value="<?php echo ucfirst($course); ?>"
-                                                      disabled>
-                            &nbsp;&nbsp;<b>Center:</b> <input type="text" name="center" value="<?php echo ucfirst($center); ?>"
-                                                              disabled>
+                            <br><b>Course:</b> <input type="text" name="course" value="course"
+                                                      >
                             <br><b>Experience:</b> <input type="text" name="experience" placeholder="Experience">
                             <br><b>Highest Qualification:</b> <input type="text" name="highestqualification" placeholder="Highest Qualification">
                             &nbsp;&nbsp;<b>Highest Qualification Marks:</b> <input type="text" name="highestqualificationmarks" placeholder="Highest Qualification Marks">
@@ -157,7 +152,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
                         $te_highestqualification = $_POST['highestqualification'];
                         $te_highestqualificationmarks = $_POST['highestqualificationmarks'];
 
-                        $sql_get_insert = "INSERT INTO teachers (eid, fname, lname, email, mobile, address, city, state, postalcode, salary, position, subject, course, center, dateofjoining, experience, highestqualification, highestqualificationmarks, status) VALUES ('$eid_get_from_sql','$te_fname','$te_lname','$te_email','$te_mobile','$te_address','$te_city','$te_state','$te_pin','$te_salary','$te_position','$te_subject','$course','$center','$te_dateofjoining','$te_experience','$te_highestqualification','$te_highestqualificationmarks','yes')";
+                        $sql_get_insert = "INSERT INTO teachers (eid, fname, lname, email, mobile, address, city, state, postalcode, salary, position, subject, course, dateofjoining, experience, highestqualification, highestqualificationmarks, status) VALUES ('$eid_get_from_sql','$te_fname','$te_lname','$te_email','$te_mobile','$te_address','$te_city','$te_state','$te_pin','$te_salary','$te_position','$te_subject','$course',$te_dateofjoining','$te_experience','$te_highestqualification','$te_highestqualificationmarks','yes')";
                         $sql_get_insert_quary = mysqli_query($conn, $sql_get_insert);
                         $insert_into_users = "INSERT INTO users (username, password, type) VALUES ('$eid_get_from_sql','$eid_get_from_sql','teacher')";
                         $insert_into_users_check = mysqli_query($conn,$insert_into_users);
@@ -182,7 +177,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
             if (isset($_GET['teacherid'])) {
                 $get_teacherid = mysqli_real_escape_string($conn, $_GET['teacherid']);
                 if ($eid != $get_teacherid) {
-                    $sql_query_search = "SELECT * FROM teachers WHERE eid='$get_teacherid' AND center='$center' AND course='$course'";
+                    $sql_query_search = "SELECT * FROM teachers WHERE eid='$get_teacherid'";
                     $sql_query_search_result = mysqli_query($conn, $sql_query_search);
                     $sql_query_search_result_check = mysqli_num_rows($sql_query_search_result);
                     if ($sql_query_search_result_check > 0) {
@@ -221,8 +216,6 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
                                                               value="<?php echo $rowss['course'] ?>" disabled>
                                     &nbsp;&nbsp;<b>Date Of Joining:</b> <input type="date" name="dateofjoining"
                                                                      value="<?php echo $rowss['dateofjoining'] ?>" disabled>
-                                    &nbsp;&nbsp;<b>Center:</b> <input type="text" name="center"
-                                                                      value="<?php echo $rowss['center']; ?>" disabled>
                                     <br><b>Experience:</b> <input type="text" name="experience"
                                                              value="<?php echo $rowss['experience'] ?>">
                                     &nbsp;&nbsp;<b>Highest Qualification:</b> <input type="text" name="highestqualification"
@@ -251,7 +244,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
                                 $te_highestqualification = $_POST['highestqualification'];
                                 $te_highestqualificationmarks = $_POST['highestqualificationmarks'];
 
-                                $sql_q_update = "UPDATE teachers SET fname='$te_fname',lname='$te_lname',email='$te_email',mobile='$te_mobile',address='$te_address',city='$te_city',state='$te_state',postalcode='$te_pin',experience='$te_experience',highestqualification='$te_highestqualification',highestqualificationmarks='$te_highestqualificationmarks' WHERE eid='$get_teacherid' AND center='$center' AND course='$course'";
+                                $sql_q_update = "UPDATE teachers SET fname='$te_fname',lname='$te_lname',email='$te_email',mobile='$te_mobile',address='$te_address',city='$te_city',state='$te_state',postalcode='$te_pin',experience='$te_experience',highestqualification='$te_highestqualification',highestqualificationmarks='$te_highestqualificationmarks' WHERE eid='$get_teacherid'";
                                 $sql_q_update_query = mysqli_query($conn, $sql_q_update);
                                 if ($sql_q_update_query) {
                                     echo '<script>location.href="teachers.php?res=success"</script>';

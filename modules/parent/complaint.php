@@ -1,9 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
-
- */
-
 session_start();
 if(isset($_SESSION['id']) && isset($_SESSION['username'])){
     include("../../config/database.php");
@@ -15,14 +10,13 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
     if ($row = mysqli_fetch_assoc($result)) {
         $fname = ucfirst($row['fname']);
         $lname = ucfirst($row['lname']);
-        $center = $row['center'];
         $course = $row['course'];
         $batch = $row['batch'];
         $mentor = $row['mentor'];
     }
     $ydate = date('Y-m-d');
     $day = date("l");
-    $find_admin_sql = "SELECT * FROM teachers WHERE position = 'admin' AND center = '$center' AND course = '$course'";
+    $find_admin_sql = "SELECT * FROM teachers WHERE position = 'admin'";
     $find_admin_result = mysqli_query($conn,$find_admin_sql);
     $find_admin_result_check = mysqli_num_rows($find_admin_result);
     if($findrows = mysqli_fetch_assoc($find_admin_result)){
@@ -91,7 +85,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
                 <th>See Reply</th>
             </tr>
             <?php
-                $complaint_sql = "SELECT * FROM complaint WHERE username = '$pid' AND center = '$center' AND course = '$course'";
+                $complaint_sql = "SELECT * FROM complaint WHERE username = '$pid'";
                 $complaint_sql_result = mysqli_query($conn,$complaint_sql);
                 $complaint_sql_result_check = mysqli_num_rows($complaint_sql_result);
                 $i=0;
@@ -173,7 +167,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
         $subject = $_POST['subject'];
         $compl = $_POST['complaint'];
         $date_of_complaint = date("Y-m-d");
-        $sql_comp = "INSERT INTO complaint (eid,teacher_type,username,batch,center,course,subject,complaint,dateofcomp) VALUES ('$eid','$teacher','$pid','$batch','$center','$course','$subject','$compl','$date_of_complaint')";
+        $sql_comp = "INSERT INTO complaint (eid,teacher_type,username,batch,course,subject,complaint,dateofcomp) VALUES ('$eid','$teacher','$pid','$batch','$course','$subject','$compl','$date_of_complaint')";
         $sql_comp_result = mysqli_query($conn,$sql_comp);
         if($sql_comp_result){
             echo '<script>alert("Successful")</script>';

@@ -13,7 +13,6 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
         if ($row = mysqli_fetch_assoc($result)) {
             $fname = ucfirst($row['fname']);
             $lname = ucfirst($row['lname']);
-            $center = $row['center'];
             $course = $row['course'];
             $batch = $row['batch'];
             $mentor = $row['mentor'];

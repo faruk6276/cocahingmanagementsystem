@@ -12,7 +12,7 @@ $resultcheck = mysqli_num_rows($result);
 if($row = mysqli_fetch_assoc($result)){
     $fname= ucfirst($row['fname']);
     $lname = ucfirst($row['lname']);
-    $center = $row['center'];
+    #$center = $row['center'];
     $course = $row['course'];
     $status = $row['status'];
 }

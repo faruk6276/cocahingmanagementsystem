@@ -1,9 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- 
- */
-
 session_start();
 if(isset($_SESSION['id']) && isset($_SESSION['username'])){
     include("../../config/database.php");
@@ -15,7 +10,6 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
     if($row = mysqli_fetch_assoc($result)){
         $fname= ucfirst($row['fname']);
         $lname = ucfirst($row['lname']);
-        $center = $row['center'];
         $course = $row['course'];
         $batch = $row['batch'];
         $status = $row['status'];
@@ -69,7 +63,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
 
                 <?php
                 $day = date("l");
-                $sql_time = "SELECT * FROM timetable WHERE center = '$center' AND batch = '$batch' AND course = '$course' AND day ='$day'";
+                $sql_time = "SELECT * FROM timetable WHERE batch = '$batch' AND course = '$course' AND day ='$day'";
                 $sql_time_result = mysqli_query($conn, $sql_time);
                 $sql_time_result_check = mysqli_num_rows($sql_time_result);
                 $j = 0;
@@ -107,7 +101,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
                     <th>Teacher ID (EID)</th>
                 </tr>
                 <?php
-                $sqli = "SELECT * FROM attendance WHERE course = '$course' AND center = '$center' AND date = '$ydate' AND sid = (SELECT sid FROM students WHERE pid = '$pid' )";
+                $sqli = "SELECT * FROM attendance WHERE course = '$course' AND date = '$ydate' AND sid = (SELECT sid FROM students WHERE pid = '$pid' )";
                 $resulti = mysqli_query($conn, $sqli);
                 $resultchecki = mysqli_num_rows($resulti);
                 $i = 0;

@@ -17,7 +17,7 @@ $resultcheck = mysqli_num_rows($result);
 if($row = mysqli_fetch_assoc($result)){
 	$fname= ucfirst($row['fname']);
 	$lname = ucfirst($row['lname']);
-	$center = $row['center'];
+	#$center = $row['center'];
 	$course = $row['course'];
 	$batch = $row['batch'];
 	$status = $row['status'];
@@ -32,7 +32,6 @@ if($status == 'yes' || $status == 'Yes') {
         <link rel="stylesheet" type="text/css" href="css/style.css">
     </head>
     <body>
-    <h2 align="center" style="color: blue"><?php echo ucfirst($center) . ' (' . strtoupper($course) . ')' ?></h2>
     <div class="header">
 
         <span style="font-size:30px;cursor:pointer" class="logo" onclick="openNav()">&#9776; open </span>
@@ -69,7 +68,7 @@ if($status == 'yes' || $status == 'Yes') {
 
             <?php
             $day = date("l");
-            $sql_time = "SELECT * FROM timetable WHERE center = '$center' AND batch = '$batch' AND course = '$course' AND day ='$day'";
+            $sql_time = "SELECT * FROM timetable WHERE  batch = '$batch' AND day ='$day'";
             $sql_time_result = mysqli_query($conn, $sql_time);
             $sql_time_result_check = mysqli_num_rows($sql_time_result);
             $j = 0;
@@ -115,7 +114,7 @@ if($status == 'yes' || $status == 'Yes') {
                 <th>Teacher ID (EID)</th>
             </tr>
             <?php
-            $sqli = "SELECT * FROM attendance WHERE sid = '$sid' AND course = '$course' AND center = '$center' AND date = '$ydate'";
+            $sqli = "SELECT * FROM attendance WHERE sid = '$sid' AND date = '$ydate'";
             $resulti = mysqli_query($conn, $sqli);
             $resultchecki = mysqli_num_rows($resulti);
             $i = 0;

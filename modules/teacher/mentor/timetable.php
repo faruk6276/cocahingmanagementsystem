@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Bharat
- * Date: 7/1/2018
- * Time: 10:47 AM
- */
-
 session_start();
 if(isset($_SESSION['id']) && isset($_SESSION['username'])){
     include("../../../config/database.php");
@@ -17,7 +10,6 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
     if($row = mysqli_fetch_assoc($result)){
         $fname= ucfirst($row['fname']);
         $lname = ucfirst($row['lname']);
-        $center = $row['center'];
         $course = $row['course'];
         $status = $row['status'];
         $batchmentor = $row['batchmentor'];
@@ -34,7 +26,6 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
             <link rel="stylesheet" type="text/css" href="css/style.css">
         </head>
         <body>
-        <h2 align="center" style="color: blue"><?php echo ucfirst($center) . ' (' . strtoupper($course) . ')' ?></h2>
         <div class="header">
 
             <span style="font-size:30px;cursor:pointer" class="logo" onclick="openNav()">&#9776; open </span>
@@ -87,7 +78,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
                 </tr>
 
                 <?php
-                $sql_time = "SELECT * FROM timetable WHERE center = '$center'AND course = '$course' AND day ='$day' AND eid = '$eid'";
+                $sql_time = "SELECT * FROM timetable WHERE  day ='$day' AND eid = '$eid'";
                 $sql_time_result = mysqli_query($conn, $sql_time);
                 $sql_time_result_check = mysqli_num_rows($sql_time_result);
                 $j = 0;
@@ -97,7 +88,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
                 $subject = $rown['subject'];
                 $batch = $rown['batch'];
 
-                $sql_find_mentor = "SELECT * from batches WHERE batch = '$batch' AND center = '$center'";
+                $sql_find_mentor = "SELECT * from batches WHERE batch = '$batch'";
                 $sql_find_mentor_result = mysqli_query($conn,$sql_find_mentor);
                 $sql_find_mentor_result_check = mysqli_num_rows($sql_find_mentor_result);
                 if($sql_find_mentor_result_check>0){

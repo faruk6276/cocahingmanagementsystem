@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
-
- */
-
-
 session_start();
 if(isset($_SESSION['id']) && isset($_SESSION['username'])){
     include("../../config/database.php");
@@ -16,7 +10,6 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
     if($row = mysqli_fetch_assoc($result)){
         $fname= ucfirst($row['fname']);
         $lname = ucfirst($row['lname']);
-        $center = $row['center'];
         $course = $row['course'];
         $status = $row['status'];
     }
@@ -93,13 +86,11 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
         <div align="center" style="background-color: aquamarine;padding: 10px">
             <a href="add.php?addadmin=true" class="linking">Add Admin</a>
             <a href="add.php?updateadmin=true" class="linking">Update Admin</a>
-            <a href="add.php?addcenters=true" class="linking">Add Centers</a>
-            <a href="add.php?updatecenter=true" class="linking">Update Centers</a>
         </div>
 
 
         <?php
-        if(!isset($_GET['addadmin']) AND !isset($_GET['updateadmin']) AND !isset($_GET['addcenters'])  AND !isset($_GET['updatecenter'])){
+        if(!isset($_GET['addadmin']) AND !isset($_GET['updateadmin'])){
             ?>
                 <h2 style="color: red;" align="center">Select One From Top navigation Bar</h2>
             <?php
@@ -132,7 +123,6 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
                         <hr width="80%">
                         <br><b>Salary:</b> <input type="text" name="salary" placeholder="Salary Per Month" required>
                         <b>Position:</b> <input type="text" name="position" value="Admin" disabled>
-                        <br><b>Course:</b> <input type="text" name="course_get" placeholder="Enter Course" required>
                         <br><b>Experience:</b> <input type="text" name="experience" placeholder="Experience" required>
                         <br><b>Highest Qualification:</b> <input type="text" name="highestqualification" placeholder="Highest Qualification" required>
                         &nbsp;&nbsp;<b>Highest Qualification Marks:</b> <input type="text" name="highestqualificationmarks" placeholder="Highest Qualification Marks" required>
@@ -153,16 +143,17 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
                     $te_salary = $_POST['salary'];
                     $te_dateofjoining = $_POST['dateofjoining'];
                     $te_position = 'admin';
-                    $te_course = $_POST['course_get'];
                     $te_experience = $_POST['experience'];
                     $te_highestqualification = $_POST['highestqualification'];
                     $te_highestqualificationmarks = $_POST['highestqualificationmarks'];
 
-                    $sql_get_insert = "INSERT INTO teachers(eid, fname, lname, email, mobile, address, city, state, postalcode, salary, position, course, dateofjoining, experience, highestqualification, highestqualificationmarks, status) VALUES ('$eid_get_from_sql','$te_fname','$te_lname','$te_email','$te_mobile','$te_address','$te_city','$te_state','$te_pin','$te_salary','$te_position','$te_course','$te_dateofjoining','$te_experience','$te_highestqualification','$te_highestqualificationmarks','yes')";
+                    $sql_get_insert = "INSERT INTO teachers(eid, fname, lname, email, mobile, address, city, state, postalcode, salary, position, dateofjoining, experience, highestqualification, highestqualificationmarks, status) 
+                    VALUES ('$eid_get_from_sql','$te_fname','$te_lname','$te_email','$te_mobile','$te_address','$te_city','$te_state','$te_pin','$te_salary','$te_position','$te_dateofjoining','$te_experience','$te_highestqualification','$te_highestqualificationmarks','yes')";
                     $sql_get_insert_quary = mysqli_query($conn, $sql_get_insert);
                     $insert_into_users = "INSERT INTO users (username, password, type) VALUES ('$eid_get_from_sql','$eid_get_from_sql','$te_position')";
                     $insert_into_users_check = mysqli_query($conn,$insert_into_users);
                     if ($sql_get_insert_quary AND $insert_into_users_check) {
+                        
                         echo '<script>alert("data success")</script>';
                         echo '<script>location.href="add.php"</script>';
                     } else {
@@ -185,18 +176,14 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
                             <h4>All admins Details With Centers</h4>
                             <table border="2">
                                 <tr>
-                                    <th>Center</th>
                                     <th>Admin(EID)</th>
                                     <th>Admin(Name)</th>
-                                    <th>Course</th>
                                     <th>Update Details</th>
                                 </tr>
                                 <?php while ($get_details = mysqli_fetch_assoc($sql_get_admins_query)) { ?>
                                     <tr align="center">
-                                        <td><?php echo $get_details['center'] ?></td>
                                         <td><?php echo $get_details['eid'] ?></td>
                                         <td><?php echo $get_details['fname'] . ' ' . $get_details['lname'] ?></td>
-                                        <td><?php echo $get_details['course'] ?></td>
                                         <td><a href="add.php?updateadmin=true&eid=<?php echo $get_details['eid']; ?>">Update
                                                 Details</a></td>
                                     </tr>
@@ -228,14 +215,13 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
                                 <b>Pin Code: </b><input type="text" name="pin_admin" value="<?php echo $admin_details['postalcode']; ?>" placeholder="Enter pin code" required><hr>
                                 <b>Position: </b><input type="text" name="position_admin" value="<?php echo $admin_details['position']; ?>" disabled>
                                 <b>Salary: </b><input type="text" name="salary_admin" value="<?php echo $admin_details['salary']; ?>" placeholder="Enter Salary" required>
-                                <br><b>Course: </b><input type="text" name="course_admin" value="<?php echo $admin_details['course']; ?>" disabled>
-                                <b>Center: </b><input type="text" name="center_admin" value="<?php echo $admin_details['center']; ?>" disabled>
                                 <br><b>Date Of Joining: </b><input type="date" name="date_admin" value="<?php echo $admin_details['dateofjoining']; ?>" disabled>
                                 <hr>
                                 <b>Experience: </b><input type="text" name="exp_admin" value="<?php echo $admin_details['experience']; ?>" required>
                                 <br><b>Highest Qualification: </b><input type="text" name="hq_admin"  value="<?php echo $admin_details['highestqualification']; ?>" placeholder="Enter Highest qualification" required>
                                 <b>Highest Qualification Marks: </b><input type="text" name="hqm_admin" value="<?php echo $admin_details['highestqualificationmarks']; ?>" placeholder="Enter Highest qualification Marks" required>
                                 <br><input type="submit" name="update_admin" value="Update">
+                                <input type="submit" name="delete_admin" value="Delete">
                             </form>
                         </div>
                     <?php }
@@ -264,139 +250,23 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
                             echo '<script>location.href="add.php?addadmin=true"</script>';
                         }
                     }
-                }
-
-            }
-
-            if(isset($_GET['addcenters'])){?>
-
-                <div align="center">
-                    <h4>Add <span style="color:blue;">Center</span></h4>
-                    <span style="color: red;font-size: 20px">## Before adding center You have to add admin ##</span><hr>
-                    <form method="post">
-                        <b>Center code ( <span style="color: lightslategrey">jaipur1</span>): </b><input type="text" name="center" placeholder="Enter Center Code" >
-                        <br><b>Location: </b><input type="text" name="location" placeholder="Enter Location Of Center"><br>
-                        <b>Date Of Start: </b><input type="date" name="dateoofbuild" placeholder="Enter Date OF Build"><br>
-                        <b>Enter Course<span style="color: red;">*</span> ( <span style="color: lightslategrey">like IIT</span>): </b><input type="text" name="course" placeholder="Enter Course"><br><span style="color: red; font-size: 10px">* Only One course at a time. For more courses click on add center and add center again.</span>
-                        <br><input type="submit" name="addcenter"  value="Add Center">
-                    </form>
-
-                </div>
-           <?php
-                if(isset($_POST['addcenter'])){
-                    $center_code = mysqli_real_escape_string($conn,$_POST['center']);
-                    $center_location = mysqli_real_escape_string($conn,$_POST['location']);
-                    $center_date = $_POST['dateoofbuild'];
-                    $center_course = $_POST['course'];
-
-                    $select_from_centers = "SELECT * FROM centers WHERE center='$center_code' AND location='$center_location' AND coures='$center_course'";
-                    $select_from_centers_q = mysqli_query($conn,$select_from_centers );
-                    if(mysqli_num_rows($select_from_centers_q) > 0){
-                        echo '<script>alert("Center with same course And same location exist")</script>';
-                    }else {
-                        $insert_into_centers = "INSERT INTO centers(center, location, dateofbuild,coures) VALUES ('$center_code','$center_location','$center_date','$center_course')";
-                        $insert_into_centers_q = mysqli_query($conn, $insert_into_centers);
-                        if ($insert_into_centers_q) {
-                            echo '<script>alert("Add success")</script>';
-                            echo '<script>location.href="add.php"</script>';
-                        } else {
-                            echo '<script>alert("Add Failed Try Again")</script>';
-                            echo '<script>location.href="add.php?addcenter=true"</script>';
-                        }
+                     if(isset($_POST['delete_admin'])){
+                         $admin_delete = "DELETE FROM teachers WHERE eid='$get_eid'";
+                        $admin_delete_q = mysqli_query($conn,$admin_delete);
+                        $admin_deactivate="UPDATE users set status='No' where username='$get_eid'";
+                        $admin_deactivate_q = mysqli_query($conn,$admin_deactivate);
+                        if ($admin_delete_q and $admin_deactivate_q) {
+                        
+                        echo '<script>alert("data success")</script>';
+                        echo '<script>location.href="add.php"</script>';
+                    } else {
+                        echo '<script>alert("Failed Try Again")</script>';
+                        echo '<script>location.href="add.php?addadmin=true"</script>';
                     }
+                     }
                 }
 
             }
-
-            if(isset($_GET['updatecenter'])){
-            if(isset($_GET['updatecenter']) AND !isset($_GET['id'])){?>
-                <div align="center">
-                    <h3>Update Center</h3>
-                    <form method="post">
-                        <input type="text" name="centerid" placeholder="Enter Center Code"/>
-                        <input type="submit" name="search" value="search">
-                    </form>
-                </div>
-            <?php }
-            if(isset($_POST['search'])){
-                $center_id = mysqli_real_escape_string($conn,$_POST['centerid']);
-                $sql_select_from_centers = "SELECT * FROM centers WHERE center='$center_id'";
-                $sql_select_from_centers_q = mysqli_query($conn,$sql_select_from_centers);
-                $sql_select_from_centers_check = mysqli_num_rows($sql_select_from_centers_q);
-                if($sql_select_from_centers_check > 0)
-                {?>
-                    <div align="center">
-                        <table border="2px">
-                            <tr>
-                                <th>Center Id</th>
-                                <th>Location</th>
-                                <th>Date Of Build</th>
-                                <th>Admin</th>
-                                <th>Course</th>
-                                <th>Update</th>
-                            </tr>
-                            <?php
-                            while($reow = mysqli_fetch_assoc($sql_select_from_centers_q)){
-                                ?>
-                                <tr>
-                                    <td><?php echo $reow['center']?></td>
-                                    <td><?php echo $reow['location']?></td>
-                                    <td><?php echo $reow['dateofbuild']?></td>
-                                    <td><?php echo $reow['admin']?></td>
-                                    <td><?php echo $reow['coures']?></td>
-                                    <td><a href="add.php?updatecenter=true&id=<?php echo $reow['id']?>">Update</a></td>
-                                </tr>
-                <?php
-                            }
-                            ?>
-                        </table>
-                    </div>
-                <?php }else{
-                    echo '<h3 style="color: red" align="center">Wrong Center Code Try Again</h3>';
-                }
-            }
-                if(isset($_GET['id']) AND isset($_GET['updatecenter'])){
-                    $get_id = (int)$_GET['id'];
-                    $sql_select_from_centers = "SELECT * FROM centers WHERE id='$get_id'";
-                    $sql_select_from_centers_q = mysqli_query($conn,$sql_select_from_centers);
-                    $sql_select_from_centers_check = mysqli_num_rows($sql_select_from_centers_q);
-                    if(!$sql_select_from_centers_check>0){
-                        echo '<h3>Some thing went Wrong Please Try again</h3>';
-                    }else{
-                        $new = mysqli_fetch_assoc($sql_select_from_centers_q);
-                        $cente_code = $new['center'];
-                        ?>
-                        <div align="center">
-                            <form method="post">
-                                <h3>Details Which can Be Updated for <span style="color: blue"><?php echo ucfirst($new['center']);?></span></h3>
-                                <b>Center Code: </b><input type="text" name="center" value="<?php echo $new['center']?>" disabled><br>
-                                <b>Center Location: </b><input type="text" name="center_location" value="<?php echo $new['location'] ?>" disabled><br>
-                                <b>date of Build: </b><input type="text" name="dateofbuild" value="<?php echo $new['dateofbuild']?>"><br>
-                                <b>Course: </b><input type="text" name="course" value="<?php echo $new['coures']?>" required>
-                                <b>Admin: </b><input type="text" name="admin_for" placeholder="Enter admin ID" value="<?php echo $new['admin']; ?>" required><br>
-                                <input type="submit" name="update_center" value="Update">
-                            </form>
-                            <a href="add.php?updatecenter=true">Cancel</a>
-                        </div>
-                    <?php
-                        if(isset($_POST['update_center'])){
-                            $course_update = mysqli_real_escape_string($conn,$_POST['course']);
-                            $admin_id = $_POST['admin_for'];
-                            $update_centers = "UPDATE centers SET coures='$course_update',admin='$admin_id' WHERE id='$get_id'";
-                            $update_centers_q = mysqli_query($conn,$update_centers);
-                            $update_tea = "UPDATE teachers SET center='$cente_code' WHERE eid='$admin_id'";
-                            $update_tea_q = mysqli_query($conn,$update_tea);
-                            if($update_centers_q AND $update_tea_q){
-                                echo '<script>alert("Update success")</script>';
-                                echo '<script>location.href="add.php"</script>';
-                            } else {
-                                echo '<script>alert("Update Failed Try Again")</script>';
-                                echo '<script>location.href="add.php?updatecenter=true"</script>';
-                            }
-                        }
-                    }
-                }
-        }
         ?>
 
         <script>

@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Bharat
- * Date: 7/1/2018
- * Time: 3:13 AM
- */
-
 session_start();
 if(isset($_SESSION['id']) && isset($_SESSION['username'])){
     if(isset($_GET['id'])) {
@@ -18,7 +11,6 @@ $resultcheck = mysqli_num_rows($result);
 if ($row = mysqli_fetch_assoc($result)) {
     $fname = ucfirst($row['fname']);
     $lname = ucfirst($row['lname']);
-    $center = $row['center'];
     $course = $row['course'];
     $batchmentor = $row['batchmentor'];
 }
@@ -35,7 +27,6 @@ $day = date("l");
     <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
-<h2 align="center" style="color: blue"><?php echo ucfirst($center) . ' (' . strtoupper($course) . ')' ?></h2>
 <div class="header">
 
     <span style="font-size:30px;cursor:pointer" class="logo" onclick="openNav()">&#9776; open </span>

@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Bharat
- * Date: 7/1/2018
- * Time: 10:27 PM
- */
-
 session_start();
 if (isset($_SESSION['id']) && isset($_SESSION['username'])) {
     include("../../../config/database.php");
@@ -17,7 +10,6 @@ if (isset($_SESSION['id']) && isset($_SESSION['username'])) {
     if ($row = mysqli_fetch_assoc($result)) {
         $fname = ucfirst($row['fname']);
         $lname = ucfirst($row['lname']);
-        $center = $row['center'];
         $course = $row['course'];
         $batchmentor = $row['batchmentor'];
     }
@@ -52,7 +44,6 @@ if (isset($_SESSION['id']) && isset($_SESSION['username'])) {
         </style>
     </head>
     <body>
-    <h2 align="center" style="color: blue"><?php echo ucfirst($center) . ' (' . strtoupper($course) . ')' ?></h2>
     <div class="header">
 
         <span style="font-size:30px;cursor:pointer" class="logo" onclick="openNav()">&#9776; open </span>
@@ -89,11 +80,10 @@ if (isset($_SESSION['id']) && isset($_SESSION['username'])) {
                 <th>PID</th>
                 <th>Timings</th>
                 <th>Fees</th>
-                <th>Scholarship</th>
                 <th>Full Information</th>
             </tr>
             <?php
-            $sql_student_mentor = "SELECT * FROM students WHERE batch = '$batchmentor' AND mentor = '$eid' AND center = '$center' AND course = '$course'";
+            $sql_student_mentor = "SELECT * FROM students WHERE batch = '$batchmentor' AND mentor = '$eid'";
             $sql_student_mentor_result = mysqli_query($conn,$sql_student_mentor);
             $sql_student_mentor_result_check = mysqli_num_rows($sql_student_mentor_result);
             if($sql_student_mentor_result_check > 0)
@@ -110,7 +100,6 @@ if (isset($_SESSION['id']) && isset($_SESSION['username'])) {
                     <th><?php echo $result_reow['pid']; ?></th>
                     <th><?php echo $result_reow['timing']; ?></th>
                     <th><?php echo $result_reow['fee']; ?></th>
-                    <th><?php echo $result_reow['scholarship'].'%'; ?></th>
                     <th><a href="batchmentorstudents.php?studentid=<?php echo $id_student?>">Click To see</a> </th>
                     </tr>
                <?php }
@@ -124,7 +113,7 @@ if (isset($_SESSION['id']) && isset($_SESSION['username'])) {
     </div>
 <?php }else{
     $id_get = mysqli_real_escape_string($conn,$_GET['studentid']);
-$sql_student_mentor = "SELECT * FROM students WHERE sid = '$id_get' AND mentor = '$eid' AND center = '$center' AND course = '$course'";
+$sql_student_mentor = "SELECT * FROM students WHERE sid = '$id_get' AND mentor = '$eid'";
 $sql_student_mentor_result = mysqli_query($conn,$sql_student_mentor);
 $sql_student_mentor_result_check = mysqli_num_rows($sql_student_mentor_result);
 if($sql_student_mentor_result_check > 0) {
@@ -164,10 +153,6 @@ if($sql_student_mentor_result_check > 0) {
                 <td><?php echo 'Rs '.$result_reow['fee']?></td>
             </tr>
             <tr>
-                <th>ScholarShip:</th>
-                <td><?php echo $result_reow['scholarship'].'%'?></td>
-            </tr>
-            <tr>
                 <th>Paid Fees:</th>
                 <td><?php echo 'Rs '.$result_reow['paidfee']?></td>
             </tr>
@@ -188,18 +173,6 @@ if($sql_student_mentor_result_check > 0) {
                 <td><?php echo '+91 '.$result_reow['fathermob']?></td>
                 <th>Mother Mobile:</th>
                 <td><?php echo '+91 '.$result_reow['mothermob']?></td>
-            </tr>
-            <tr>
-                <th>10 Marks:</th>
-                <td><?php echo $result_reow['10mark']?></td>
-                <th>12 Marks:</th>
-                <td><?php echo $result_reow['12mark']?></td>
-            </tr>
-            <tr>
-                <th>Previous Exam( Year):</th>
-                <td><?php echo $result_reow['preexam'].' ('.$result_reow['preexamyear'].')'?></td>
-                <th>Previous Exam Marks:</th>
-                <td><?php echo $result_reow['preexammarks']?></td>
             </tr>
             <tr>
                 <th>Date Of Joining:</th>

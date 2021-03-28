@@ -12,7 +12,6 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
     if($row = mysqli_fetch_assoc($result)){
         $fname= ucfirst($row['fname']);
         $lname = ucfirst($row['lname']);
-        $center = $row['center'];
         $course = $row['course'];
         $status = $row['status'];
     }
@@ -59,13 +58,6 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
                     <th><div style="background-color: green; color: white; padding-left:20px;padding-right: 20px;padding-bottom: 1px;padding-top: 1px;"><h3>Total Batch</h3><p><?php echo $sql_find_batch_total['total_batch'];?></p></div></th>
 
                     <?php
-                    $sql_find_batch = "SELECT count(center) AS total_center FROM centers";
-                    $sql_find_batch_get=mysqli_query($conn,$sql_find_batch);
-                    $sql_find_batch_total = mysqli_fetch_assoc($sql_find_batch_get);
-                    ?>
-                    <th><div style="background-color: lightcoral; color: white; padding-left:20px;padding-right: 20px;padding-bottom: 1px;padding-top: 1px;"><h3>Total Centers</h3><p><?php echo $sql_find_batch_total['total_center'];?></p></div></th>
-
-                    <?php
                     $sql_find_sid = "SELECT count(sid) AS total_sid FROM students";
                     $sql_find_sid_get=mysqli_query($conn,$sql_find_sid);
                     $sql_find_sid_total = mysqli_fetch_assoc($sql_find_sid_get);
@@ -98,22 +90,22 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
         </div>
 
         <div align="center" style="background-color: lightgray; padding: 10px;">
-            <h3 style="color: blue">Center And Center Admins</h3>
+            <h3 style="color: blue">Admins</h3>
             <table border="1" cellpadding="10px">
                 <tr>
-                    <th width="250px">Batches</th>
-                    <th width="250px">Admin EID</th>
-                    <th width="250px">Course</th>
+                     <th width="250px">Admin EID</th>
+                    <th width="250px">Admin Name</th>
+                    <th width="250px">Admin Salary</th>
                 </tr>
                 <?php
-                    $get_batch_information = "SELECT * FROM centers";
+                    $get_batch_information = "SELECT * FROM teachers where position='admin'";
                     $get_batch_information_query = mysqli_query($conn,$get_batch_information);
                     while($rwo = mysqli_fetch_assoc($get_batch_information_query)){
                 ?>
                         <tr>
-                            <th><?php echo ucfirst($rwo['center'])?></th>
-                            <th><?php echo $rwo['admin']?></th>
-                            <th><?php echo $rwo['coures']?></th>
+                            <th><?php echo $rwo['eid']?></th>
+                            <th><?php echo $rwo['fname']." ".$rwo['lname']?></th>
+                            <th><?php echo $rwo['salary']?></th>
                         </tr>
                       <?php }  ?>
             </table>

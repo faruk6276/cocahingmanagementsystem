@@ -10,7 +10,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
     if($row = mysqli_fetch_assoc($result)){
         $fname= ucfirst($row['fname']);
         $lname = ucfirst($row['lname']);
-        $center = $row['center'];
+        #$center = $row['center'];
         $course = $row['course'];
         $status = $row['status'];
     }
@@ -44,7 +44,6 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
 
         </head>
         <body>
-        <h2 align="center" style="color: blue"><?php echo ucfirst($center) . ' (' . strtoupper($course) . ')' ?></h2>
         <div class="header">
 
             <span style="font-size:30px;cursor:pointer" class="logo" onclick="openNav()">&#9776; open </span>

@@ -23,7 +23,11 @@ if(isset($_POST['login'])){
                 if(!($password == $row['password'])){
 					sleep(1);
                     $error = "! Password is incorrect";
-                }else if($password == $row['password']){
+                }
+                else if ($row['status']=='No'){
+                  $error="Your account is not activated";
+                }
+                else if($password == $row['password']){
                         $_SESSION['id'] = $row['id'];
                         $_SESSION['username'] = $row['username'];
 

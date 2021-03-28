@@ -10,7 +10,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
     if($row = mysqli_fetch_assoc($result)){
         $fname= ucfirst($row['fname']);
         $lname = ucfirst($row['lname']);
-        $center = $row['center'];
+        #$center = $row['center'];
         $course = $row['course'];
         $status = $row['status'];
     }
@@ -61,7 +61,6 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
             </style>
         </head>
         <body>
-        <h2 align="center" style="color: blue"><?php echo ucfirst($center) . ' (' . strtoupper($course) . ')' ?></h2>
         <div class="header">
 
             <span style="font-size:30px;cursor:pointer" class="logo" onclick="openNav()">&#9776; open </span>
@@ -98,7 +97,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
                        EID :<select name="teacher_eid">
                             <option value="none">Select EID</option>
                         <?php
-                            $sql_get_teacher = "SELECT * FROM teachers WHERE center='$center' AND course='$course' AND NOT position='admin' order by eid";
+                            $sql_get_teacher = "SELECT * FROM teachers WHERE NOT position='admin' order by eid";
                             $sql_get_teacher_q = mysqli_query($conn,$sql_get_teacher);
                             while($teachereid = mysqli_fetch_assoc($sql_get_teacher_q)){
                         ?>
@@ -123,13 +122,13 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
                 $get_status = $_POST['status'];
                 $date = date('Y-m-d');
 
-                $sql_get_results = "SELECT * FROM tea_attendance WHERE eid='$get_eid' AND date='$date' AND center='$center' AND course='$course'";
+                $sql_get_results = "SELECT * FROM tea_attendance WHERE eid='$get_eid' AND date='$date'";
                 $sql_get_results_q = mysqli_query($conn,$sql_get_results);
                 $neeh = mysqli_num_rows($sql_get_results_q);
                 if($neeh>0){
                     echo '<script>alert("Attendance Already Marked")</script>';
                 }else{
-                    $insert_into_tea_attendance = "INSERT INTO tea_attendance(eid, date, timetocome, timetogo, bywhom, status, center, course) VALUES ('$get_eid','$date','$get_timein','$get_timeout','$eid','$get_status','$center','$course')";
+                    $insert_into_tea_attendance = "INSERT INTO tea_attendance(eid, date, timetocome, timetogo, bywhom, status) VALUES ('$get_eid','$date','$get_timein','$get_timeout','$eid','$get_status')";
                     $insert_into_tea_attendance_q = mysqli_query($conn,$insert_into_tea_attendance);
                     if($insert_into_tea_attendance_q ){
                         echo '<script>alert("Successfully done")</script>';
@@ -149,7 +148,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
                 EID :<select name="teacher_eid_update">
                     <option value="none">Select EID</option>
                     <?php
-                    $sql_get_teacher = "SELECT * FROM teachers WHERE center='$center' AND course='$course' AND NOT position='admin' order by eid";
+                    $sql_get_teacher = "SELECT * FROM teachers WHERE NOT position='admin' order by eid";
                     $sql_get_teacher_q = mysqli_query($conn,$sql_get_teacher);
                     while($teachereid = mysqli_fetch_assoc($sql_get_teacher_q)){
                         ?>
@@ -165,7 +164,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
         if(isset($_POST['update'])){
             $het_eid = $_POST['teacher_eid_update'];
             $dateofattrndance = $_POST['dateofattendance'];
-            $get_teacher_attendance = "SELECT * FROM tea_attendance WHERE eid='$het_eid' AND date='$dateofattrndance' AND center='$center' AND course='$course'";
+            $get_teacher_attendance = "SELECT * FROM tea_attendance WHERE eid='$het_eid' AND date='$dateofattrndance'";
             $get_teacher_attendance_q = mysqli_query($conn,$get_teacher_attendance);
             $get_teacher_attendance_ch = mysqli_num_rows($get_teacher_attendance_q);
             if($get_teacher_attendance_ch >0){
@@ -195,7 +194,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
                     $get_new_status = $_POST['update_status'];
                     $get_new_in = $_POST['timetoinn'];
                     $get_new_out = $_POST['timetogoout'];
-                    $udaye = "UPDATE tea_attendance SET status='$get_new_status',timetocome='$get_new_in',timetogo='$get_new_out' WHERE eid='$$het_eid'AND date ='$dateofattrndance' AND center='$center' AND course='$course'";
+                    $udaye = "UPDATE tea_attendance SET status='$get_new_status',timetocome='$get_new_in',timetogo='$get_new_out' WHERE eid='$$het_eid'AND date ='$dateofattrndance'";
                     $dqd = mysqli_query($conn,$udaye);
                     if($dqd){
                         echo '<script>alert("Update Successful")</script>';

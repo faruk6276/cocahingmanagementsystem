@@ -11,7 +11,6 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
     if ($row = mysqli_fetch_assoc($result)) {
         $fname = ucfirst($row['fname']);
         $lname = ucfirst($row['lname']);
-        $center = $row['center'];
         $course = $row['course'];
         $batch = $row['batch'];
     }
@@ -52,37 +51,31 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
         <table border="2" align="center" cellpadding="5px">
             <tr>
                 <th>SID</th>
-                <th>Center</th>
                 <th>Course</th>
                 <th>Batch</th>
                 <th>Total Fees</th>
-                <th>Scholarship</th>
                 <th>Total Fee To Pay</th>
                 <th>Total Paid Fees</th>
                 <th>Fees To Pay</th>
             </tr>
             <?php
-                $sqli = "SELECT * FROM students WHERE sid = (SELECT sid FROM students WHERE pid = '$pid') AND course = '$course' AND center = '$center' AND batch = '$batch'";
+                $sqli = "SELECT * FROM students WHERE sid = (SELECT sid FROM students WHERE pid = '$pid') AND batch = '$batch'";
             $resulti = mysqli_query($conn, $sqli);
             $resultchecki = mysqli_num_rows($resulti);
             while ($rows = mysqli_fetch_assoc($resulti)) {
-                $center = $rows['center'];
                 $sid = $rows['sid'];
                 $course = $rows['course'];
                 $batch = $rows['batch'];
                 $fees = $rows['fee'];
-                $scholarship = $rows['scholarship'];
                 $paid_fees = $rows['paidfee'];
-                $newfee = $fees-($fees*$scholarship)/100;
+                $newfee = $fees;
 
                 ?>
                 <tr align="center">
                     <td><?php echo strtoupper($sid); ?></td>
-                    <td><?php echo ucfirst($center); ?></td>
                     <td><?php echo strtoupper($course); ?></td>
                     <td><?php echo ucfirst($batch); ?></td>
                     <td><?php echo $fees; ?></td>
-                    <td><?php echo $scholarship .'%'; ?></td>
                     <td><?php echo $newfee; ?></td>
                     <td><?php echo $paid_fees ?></td>
                     <td><?php echo $newfee-$paid_fees; ?></td>

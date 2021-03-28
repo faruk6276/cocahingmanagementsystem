@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Bharat
- * Date: 6/28/2018
- * Time: 11:56 PM
- */
-
 session_start();
 if(isset($_SESSION['id']) && isset($_SESSION['username'])){
     include("../../../config/database.php");
@@ -17,7 +10,6 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
     if ($row = mysqli_fetch_assoc($result)) {
         $fname = ucfirst($row['fname']);
         $lname = ucfirst($row['lname']);
-        $center = $row['center'];
         $course = $row['course'];
         $batchmentor = $row['batchmentor'];
     }
@@ -31,7 +23,6 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
         <link rel="stylesheet" type="text/css" href="css/style.css">
     </head>
     <body>
-    <h2 align="center" style="color: blue"><?php echo ucfirst($center) . ' (' . strtoupper($course) . ')' ?></h2>
     <div class="header">
 
         <span style="font-size:30px;cursor:pointer" class="logo" onclick="openNav()">&#9776; open </span>
@@ -87,7 +78,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
                 <th>By (EID)</th>
             </tr>
             <?php
-            $sqli = "SELECT * FROM tea_attendance WHERE eid = '$eid' AND course = '$course' AND center = '$center' AND date = '$ydate'";
+            $sqli = "SELECT * FROM tea_attendance WHERE eid = '$eid' AND date = '$ydate'";
             $resulti = mysqli_query($conn, $sqli);
             $resultchecki = mysqli_num_rows($resulti);
             $i = 0;

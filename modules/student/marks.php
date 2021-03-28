@@ -17,7 +17,6 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
     if ($row = mysqli_fetch_assoc($result)) {
         $fname = ucfirst($row['fname']);
         $lname = ucfirst($row['lname']);
-        $center = $row['center'];
         $course = $row['course'];
         $batch = $row['batch'];
     }
@@ -32,7 +31,6 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
         <link rel="stylesheet" type="text/css" href="css/style.css">
     </head>
     <body>
-    <h2 align="center" style="color: blue"><?php echo ucfirst($center) . ' (' . strtoupper($course) . ')' ?></h2>
     <div class="header">
 
         <span style="font-size:30px;cursor:pointer" class="logo" onclick="openNav()">&#9776; open </span>
@@ -60,7 +58,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
             <form method="post" action="marks.php">
                 <tr> <td><h4>Enter Exam Name</h4></td>
                     <?php
-                        $sql_search = "SELECT * FROM exams WHERE batch = '$batch' AND center='$center' AND course = '$course'";
+                        $sql_search = "SELECT * FROM exams WHERE batch = '$batch'";
                         $sql_search_check = mysqli_query($conn,$sql_search);
                         $sql_search_check_res = mysqli_num_rows($sql_search_check);
                         if($sql_search_check_res>0){?>
@@ -126,9 +124,9 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
             </tr>
             <?php
             if(isset($_POST['examname']) OR isset($_POST['date'])) {
-                $sqli = "SELECT * FROM marks WHERE sid = '$sid' AND course = '$course' AND center = '$center' AND batch = '$batch' AND (examname = '$examname' OR dateofexam = '$date')";
+                $sqli = "SELECT * FROM marks WHERE sid = '$sid' AND batch = '$batch' AND (examname = '$examname' OR dateofexam = '$date')";
             }else{
-                  $sqli = "SELECT * FROM marks WHERE sid = '$sid' AND course = '$course' AND center = '$center' AND batch = '$batch'";
+                  $sqli = "SELECT * FROM marks WHERE sid = '$sid' AND batch = '$batch'";
             }
             $resulti = mysqli_query($conn, $sqli);
             $resultchecki = mysqli_num_rows($resulti);

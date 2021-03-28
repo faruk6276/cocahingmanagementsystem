@@ -1,9 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
-
- */
-
 session_start();
 if(isset($_SESSION['id']) && isset($_SESSION['username'])){
     include("../../config/database.php");
@@ -15,7 +10,6 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
     if ($row = mysqli_fetch_assoc($result)) {
         $fname = ucfirst($row['fname']);
         $lname = ucfirst($row['lname']);
-        $center = $row['center'];
         $course = $row['course'];
         $batch = $row['batch'];
     }
@@ -81,7 +75,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
                 <th>Teacher ID (EID)</th>
             </tr>
             <?php
-            $sqli = "SELECT * FROM attendance WHERE course = '$course' AND center = '$center' AND batch = '$batch' AND date = '$ydate' AND sid=(SELECT sid FROM students WHERE pid = '$pid')";
+            $sqli = "SELECT * FROM attendance WHERE batch = '$batch' AND date = '$ydate' AND sid=(SELECT sid FROM students WHERE pid = '$pid')";
             $resulti = mysqli_query($conn, $sqli);
             $resultchecki = mysqli_num_rows($resulti);
             $i = 0;

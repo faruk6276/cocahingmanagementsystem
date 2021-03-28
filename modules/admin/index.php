@@ -12,7 +12,6 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
     if($row = mysqli_fetch_assoc($result)){
         $fname= ucfirst($row['fname']);
         $lname = ucfirst($row['lname']);
-        $center = $row['center'];
         $course = $row['course'];
         $status = $row['status'];
     }
@@ -26,7 +25,6 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
             <link rel="stylesheet" type="text/css" href="css/style.css">
         </head>
         <body>
-        <h2 align="center" style="color: blue"><?php echo ucfirst($center) . ' (' . strtoupper($course) . ')' ?></h2>
         <div class="header">
 
             <span style="font-size:30px;cursor:pointer" class="logo" onclick="openNav()">&#9776; open </span>
@@ -56,33 +54,33 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
             <table cellpadding="10px">
                 <tr>
                     <?php
-                    $sql_find_batch = "SELECT count(batch) AS total_batch FROM batches WHERE center='$center' AND course='$course'";
+                    $sql_find_batch = "SELECT count(batch) AS total_batch FROM batches";
                     $sql_find_batch_get=mysqli_query($conn,$sql_find_batch);
                     $sql_find_batch_total = mysqli_fetch_assoc($sql_find_batch_get);
                     ?>
                     <th><div style="background-color: green; color: white; padding-left:20px;padding-right: 20px;padding-bottom: 1px;padding-top: 1px;"><h3>Total Batches</h3><p><?php echo $sql_find_batch_total['total_batch'];?></p></div></th>
 
                     <?php
-                    $sql_find_sid = "SELECT count(sid) AS total_sid FROM students WHERE center='$center' AND course='$course'";
+                    $sql_find_sid = "SELECT count(sid) AS total_sid FROM students";
                     $sql_find_sid_get=mysqli_query($conn,$sql_find_sid);
                     $sql_find_sid_total = mysqli_fetch_assoc($sql_find_sid_get);
                     ?>
                     <th><div style="background-color: red; color:white; padding-left:20px;padding-right: 20px;padding-bottom: 1px;padding-top: 1px;"><h3>Total Students</h3><p><?php echo $sql_find_sid_total['total_sid'];?></p></div></th>
 
                     <?php
-                    $sql_find_mentor = "SELECT count(eid) AS total_mentor FROM teachers WHERE center='$center' AND course='$course' AND position='mentor'";
+                    $sql_find_mentor = "SELECT count(eid) AS total_mentor FROM teachers WHERE position='mentor'";
                     $sql_find_mentor_get=mysqli_query($conn,$sql_find_mentor);
                     $sql_find_mentor_total = mysqli_fetch_assoc($sql_find_mentor_get);
                     ?>
                     <th><div style="background-color: black; color: white; padding-left:20px;padding-right: 20px;padding-bottom: 1px;padding-top: 1px;"><h3>Total Mentors</h3><p><?php echo $sql_find_mentor_total['total_mentor']; ?></p></div></th>
                     <?php
-                    $sql_find_hod = "SELECT count(eid) AS total_hod FROM teachers WHERE center='$center' AND course='$course' AND position='hod'";
+                    $sql_find_hod = "SELECT count(eid) AS total_hod FROM teachers WHERE  position='hod'";
                     $sql_find_hod_get=mysqli_query($conn,$sql_find_hod);
                     $sql_find_hod_total = mysqli_fetch_assoc($sql_find_hod_get);
                     ?>
                     <th><div style="background-color: blue; color: white; padding-left:20px;padding-right: 20px;padding-bottom: 1px;padding-top: 1px;"><h3>Total HOD's</h3><p><?php echo $sql_find_hod_total['total_hod']?></p></div></th>
                     <?php
-                    $sql_find_teacher = "SELECT count(eid) AS total_teacher FROM teachers WHERE center='$center' AND course='$course' AND position='teacher'";
+                    $sql_find_teacher = "SELECT count(eid) AS total_teacher FROM teachers WHERE  position='teacher'";
                     $sql_find_teacher_get=mysqli_query($conn,$sql_find_teacher);
                     $sql_find_teacher_total = mysqli_fetch_assoc($sql_find_teacher_get);
                     ?>
@@ -100,7 +98,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
                     <th width="250px">Mentor Id</th>
                 </tr>
                 <?php
-                    $get_batch_information = "SELECT * FROM batches where course='$course' AND center='$center'";
+                    $get_batch_information = "SELECT * FROM batches";
                     $get_batch_information_query = mysqli_query($conn,$get_batch_information);
                     while($rwo = mysqli_fetch_assoc($get_batch_information_query)){
                 ?>

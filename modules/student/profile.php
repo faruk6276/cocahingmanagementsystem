@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Bharat
- * Date: 6/8/2018
- * Time: 6:35 AM
- */
-
 session_start();
 include ("../../config/database.php");
 if(isset($_SESSION['id']) && isset($_SESSION['username'])){
@@ -24,11 +17,9 @@ while($rows = mysqli_fetch_assoc($sql_profile_check)){
     $state = $rows['state'];
     $postal_code = $rows['postalcode'];
     $fees = $rows['fee'];
-    $scholarship = $rows['scholarship'];
     $paid_fees = $rows['paidfee'];
     $pid = $rows['pid'];
     $status = $rows['status'];
-    $center = $rows['center'];
     $course = $rows['course'];
     $batch = $rows['batch'];
     $class = $rows['class'];
@@ -38,18 +29,9 @@ while($rows = mysqli_fetch_assoc($sql_profile_check)){
     $mothername = $rows['mothername'];
     $mothermob = $rows['mothermob'];
     $motheroccu = $rows['motheroccu'];
-    if(isset($rows['10mark'])){
-    $mark10 = $rows['10mark'];
-    }
-    if(isset($rows['12mark'])){
-    $mark12 = $rows['12mark'];
-    }
-    $pre_exam = $rows['preexam'];
-    $pre_exam_marks = $rows['preexammarks'];
     $mentor = $rows['mentor'];
     $timing = $rows['timing'];
     $date_of_joinig = $rows['dateofreg'];
-    $pre_exam_year = $rows['preexamyear'];
 }
 
 ?>
@@ -71,7 +53,6 @@ while($rows = mysqli_fetch_assoc($sql_profile_check)){
     </style>
 </head>
 <body>
-<h2 align="center" style="color: blue"><?php echo ucfirst($center) . ' (' . strtoupper($course) . ')' ?></h2>
 <div class="header">
 
     <span style="font-size:30px;cursor:pointer" class="logo" onclick="openNav()">&#9776; open </span>
@@ -109,7 +90,7 @@ while($rows = mysqli_fetch_assoc($sql_profile_check)){
                     <li><p><span class="glyphicon glyphicon-ok-sign" style="width:50px;"></span><?php echo $sid.' ( PID:'.$pid.')'; ?></p></li>
                     <li><p><span class="glyphicon glyphicon-earphone one" style="width:50px;"></span><?php echo '+91 '.$mobile; ?></p></li>
                     <li><p><span class="glyphicon glyphicon-envelope one" style="width:50px;"></span><?php echo $email; ?></p></li>
-                    <li><p><span class="glyphicon glyphicon-map-marker one" style="width:50px;"></span><?php echo ucfirst($center).'('.strtoupper($course).')' ?></p></li>
+                    <li><p><span class="glyphicon glyphicon-map-marker one" style="width:50px;"></span><?php echo '('.strtoupper($course).')' ?></p></li>
                     <li><p><span class="glyphicon glyphicon-tower" style="width:50px;"></span><?php echo $batch.' ('.strtoupper($timing).')'; ?></p></li>
                 </ul>
             </div>
@@ -117,9 +98,8 @@ while($rows = mysqli_fetch_assoc($sql_profile_check)){
     </div>
     <div align="center">
         <p><b><i>Address:</i></b><?php echo $address.', '. $city.', '.$state.', '.$postal_code ?></p>
-        <p><b><i>Total Fee:</i></b><?php echo $fees; ?> &nbsp; &nbsp; <b><i>Scholarship:</i></b><?php echo $scholarship.'%' ?> &nbsp;&nbsp;<b><i>Total Fee To Pay:</i></b><?php $newfee = $fees-($fees*$scholarship)/100; echo $newfee ?> &nbsp; &nbsp; <b><i>Total Paid Fees:</i></b><?php echo $paid_fees; ?> &nbsp;&nbsp; <b><i>Fees To Pay:</i></b><?php echo $newfee-$paid_fees;  ?> &nbsp; &nbsp;&nbsp;<a href="fees.php"><button>Pay</button></a></p>
+        <p><b><i>Total Fee:</i></b><?php echo $fees; ?> &nbsp; &nbsp;<b><i>Total Fee To Pay:</i></b><?php $newfee = $fees; echo $newfee ?> &nbsp; &nbsp; <b><i>Total Paid Fees:</i></b><?php echo $paid_fees; ?> &nbsp;&nbsp; <b><i>Fees To Pay:</i></b><?php echo $newfee-$paid_fees;  ?> &nbsp; &nbsp;&nbsp;<a href="fees.php"><button>Pay</button></a></p>
         <p><b><i>Class: </i></b><?php echo $class; ?> &nbsp; &nbsp; <?php if(isset($mark10)){echo '<b><i>Class 10 Marks: </i></b>'.$mark10; } ?> &nbsp;&nbsp; <?php if(isset($mark12)){echo '<b><i>Class 12 Marks:</i></b>'.$mark12; } ?>&nbsp</p>
-        <p><b><i>Previous Exam Attempted: </i></b><?php echo $pre_exam.' ( '.$pre_exam_year.')'; ?> &nbsp;&nbsp; <b><i>Previous Exam Marks: </i></b><?php echo $pre_exam_marks; ?></p>
         <p><b><i>Father's Name: </i></b><?php echo ucfirst($fathername); ?> &nbsp;&nbsp; <b><i>Father's Occupation: </i></b><?php echo ucfirst($fatheroccu); ?> &nbsp;&nbsp; <b><i>Father's Mobile:</i></b> <?php echo '+91 '.$fathermob; ?></p>
         <p><b><i>Mother's Name: </i></b><?php echo ucfirst($mothername); ?> &nbsp;&nbsp; <b><i>Mother's Occupation: </i></b><?php echo ucfirst($motheroccu); ?> &nbsp;&nbsp; <b><i>Mother's Mobile:</i></b> <?php echo '+91 '.$mothermob; ?></p>
         <p><button onclick="showsome()">Update Details</button></p>

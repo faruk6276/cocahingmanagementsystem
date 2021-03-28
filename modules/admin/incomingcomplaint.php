@@ -15,7 +15,7 @@ $resultcheck = mysqli_num_rows($result);
 if($row = mysqli_fetch_assoc($result)){
     $fname= ucfirst($row['fname']);
     $lname = ucfirst($row['lname']);
-    $center = $row['center'];
+    #$center = $row['center'];
     $course = $row['course'];
     $status = $row['status'];
 }
@@ -37,7 +37,6 @@ if($status == 'yes' || $status == 'Yes') {
     <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
-<h2 align="center" style="color: blue"><?php echo ucfirst($center) . ' (' . strtoupper($course) . ')' ?></h2>
 <div class="header">
 
     <span style="font-size:30px;cursor:pointer" class="logo" onclick="openNav()">&#9776; open </span>
@@ -63,7 +62,7 @@ if($status == 'yes' || $status == 'Yes') {
     <a href="../../logout.php">Logout</a>
 </div>
 <?php
-    $sql_get_complaint = "SELECT * FROM complaint WHERE eid = '$eid' AND (teacher_type='admin' OR teacher_type='Admin') AND center = '$center' AND course='$course' ORDER BY  dateofcomp";
+    $sql_get_complaint = "SELECT * FROM complaint WHERE eid = '$eid' AND (teacher_type='admin' OR teacher_type='Admin') ORDER BY  dateofcomp";
     $sql_get_complaint_check = mysqli_query($conn,$sql_get_complaint);
     $sql_get_complaint_check_result = mysqli_num_rows($sql_get_complaint_check);
     if($sql_get_complaint_check_result>0){

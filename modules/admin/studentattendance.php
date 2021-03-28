@@ -1,9 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
-
- */
-
 session_start();
 if(isset($_SESSION['id']) && isset($_SESSION['username'])){
 include("../../config/database.php");
@@ -15,7 +10,7 @@ $resultcheck = mysqli_num_rows($result);
 if($row = mysqli_fetch_assoc($result)){
     $fname= ucfirst($row['fname']);
     $lname = ucfirst($row['lname']);
-    $center = $row['center'];
+    #$center = $row['center'];
     $course = $row['course'];
     $status = $row['status'];
 }
@@ -58,7 +53,6 @@ if($status == 'yes' || $status == 'Yes') {
     </style>
 </head>
 <body>
-<h2 align="center" style="color: blue"><?php echo ucfirst($center) . ' (' . strtoupper($course) . ')' ?></h2>
 <div class="header">
 
     <span style="font-size:30px;cursor:pointer" class="logo" onclick="openNav()">&#9776; open </span>
@@ -104,7 +98,7 @@ if($status == 'yes' || $status == 'Yes') {
         <?php
             $sid_get = mysqli_real_escape_string($conn,$_POST['stid']);
             $st_get_date = $_POST['dateofatt'];
-            $get_attendance = "SELECT * FROM attendance WHERE sid='$sid_get' AND date='$st_get_date' AND center='$center' AND course='$course'";
+            $get_attendance = "SELECT * FROM attendance WHERE sid='$sid_get' AND date='$st_get_date' AND course='$course'";
             $get_attendance_check = mysqli_query($conn,$get_attendance);
             while($get_attendance_rows=mysqli_fetch_assoc($get_attendance_check)){ ?>
                 <tr>

@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Bharat
- * Date: 6/29/2018
- * Time: 12:26 AM
- */
-
 session_start();
 if(isset($_SESSION['id']) && isset($_SESSION['username'])){
     include("../../../config/database.php");
@@ -17,7 +10,6 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
     if($row = mysqli_fetch_assoc($result)){
         $fname= ucfirst($row['fname']);
         $lname = ucfirst($row['lname']);
-        $center = $row['center'];
         $course = $row['course'];
         $status = $row['status'];
         $subject = $row['subject'];
@@ -33,7 +25,6 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
             <link rel="stylesheet" type="text/css" href="css/style.css">
         </head>
         <body>
-        <h2 align="center" style="color: blue"><?php echo ucfirst($center) . ' (' . strtoupper($course) . ')' ?></h2>
         <div class="header">
 
             <span style="font-size:30px;cursor:pointer" class="logo" onclick="openNav()">&#9776; open </span>
@@ -72,7 +63,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
                     if(isset($_GET['search'])){
                         $searchid = mysqli_real_escape_string($conn,$_GET['search']);
 
-                        $sql_search = "SELECT * FROM students WHERE sid = '$searchid' AND center = '$center'";
+                        $sql_search = "SELECT * FROM students WHERE sid = '$searchid' ";
                         $sql_search_result = mysqli_query($conn,$sql_search);
                         $sql_search_result_check = mysqli_num_rows($sql_search_result);
                         if($rowss = mysqli_fetch_assoc($sql_search_result)){
