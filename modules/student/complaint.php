@@ -42,7 +42,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
                 <?php echo $fname . " " . $lname . " (" . strtoupper($sid) . ")" ?></a>
         </div>
     </div>
-    <div id="mySidenav" class="sidenav">
+ <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
         <a href="index.php" class="logo"><span style="color:red;font-size:70px">CIMS</span></a>
         <a href="profile.php"><?php echo $fname . " " . $lname . " (" . strtoupper($sid) . ")" ?></a>
@@ -50,6 +50,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
         <a href="attendance.php">Attendance</a>
         <a href="timetable.php">TimeTable</a>
         <a href="marks.php">Marks</a>
+        <a href="notice.php">Notices</a>
         <a href="fees.php">Fees</a>
         <a href="complaint.php">Complaint</a>
         <a href="password_update.php">Update Password</a>

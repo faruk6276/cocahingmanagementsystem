@@ -47,41 +47,35 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
         <a href="password_update.php">Update Password</a>
         <a href="../../logout.php">Logout</a>
     </div>
-    <div style="padding-left:20px; float: left;border-left: 6px solid red;background-color: lightgrey;width: 100%;">
-        <h1 align="center">Fees - <span style="color: blue"><?php echo $fname.' '.$lname; ?></span></h1>
+   
+    <div style="padding-left:20px; float: left;border-left: 6px solid red;background-color: lightgrey;width: 100%">
+        <h1 align="center">Notices</h1>
         <table border="2" align="center" cellpadding="5px">
+            <h4 align="center">Showing All The notices
+
+            </h4>
             <tr>
-                <th>SID</th>
-                <th>Course</th>
-                <th>Batch</th>
-                <th>Total Fees</th>
-                <th>Total Fee To Pay</th>
-                <th>Total Paid Fees</th>
-                <th>Fees To Pay</th>
+                <th>S.NO.</th>
+                <th>Subject</th>
+                <th>Notice</th>
+                <th>Date OF Notice</th>
             </tr>
             <?php
-                $sqli = "SELECT * FROM students WHERE sid = '$sid' AND batch = '$batch'";
+            $sqli = "SELECT * FROM notices WHERE batch = '$batch'";
             $resulti = mysqli_query($conn, $sqli);
             $resultchecki = mysqli_num_rows($resulti);
+            $i = 0;
             while ($rows = mysqli_fetch_assoc($resulti)) {
-                $course = $rows['course'];
-                $batch = $rows['batch'];
-                $fees = $rows['fee'];
-                $paid_fees = $rows['paidfee'];
-                $newfee = $fees;
-
+                $i++;
+                $subject = $rows['subject'];
+                $examname = $rows['notice'];
+                $dateofexam = $rows['notice_date'];
                 ?>
-                <tr align="center">
-                    <td><?php echo strtoupper($sid); ?></td>
-                    <td><?php echo strtoupper($course); ?></td>
-                    <td><?php echo ucfirst($batch); ?></td>
-                    <td><?php echo $fees; ?></td>
-                    <td><?php echo $newfee; ?></td>
-                    <td><?php echo $paid_fees ?></td>
-                    <td><?php echo $newfee-$paid_fees; ?></td>
-                </tr>
-                <tr>
-                    <td colspan="9" align="center"><button class="feepay">Pay Fees</button></td>
+                <tr style="background-color: <?php echo $background_color; ?>;color: red;">
+                    <td><?php echo $i; ?></td>
+                    <td><?php echo ucfirst($subject); ?></td>
+                    <td><?php echo ucfirst($examname); ?></td>
+                    <td><?php echo $dateofexam; ?></td>
                 </tr>
             <?php } ?>
         </table>
@@ -96,18 +90,31 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
         }
     </script>
     <style>
-        .feepay{
-            width: 200px;
-            font-size: 20px;
-            color: red;
-            border-radius: 10px;
-            border-color: green;
+        input[type=date],select{
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            margin-top: 6px;
+            margin-bottom: 16px;
+            resize: vertical;
         }
-        .feepay:hover{
-            background-color: green;
+
+        input[type=submit] {
+            background-color: #4CAF50;
             color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
         }
+
+        input[type=submit]:hover {
+            background-color: #45a049;
+        }
+
     </style>
+
     </body>
     </html>
     <?php

@@ -138,7 +138,6 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
                         $date_insert = $date_get;
                         $batch_insert = $batch_get;
                         $timings_insert = $timings_get;
-                        $center_insert = $center;
                         $subject_insert = $subject;
                         $course_insert = $course;
                         $sql_check_att = "SELECT * FROM attendance WHERE sid ='$sid_get' AND date = '$date_insert' AND subject='$subject' AND timing = '$timings_insert'";

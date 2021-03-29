@@ -95,7 +95,6 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
                         <li><p><span class="glyphicon glyphicon-ok-sign" style="width:50px;"></span><?php echo $eid.' ('.ucfirst($subject).')'; ?></p></li>
                         <li><p><span class="glyphicon glyphicon-earphone one" style="width:50px;"></span><?php echo '+91 '.$mobile; ?></p></li>
                         <li><p><span class="glyphicon glyphicon-envelope one" style="width:50px;"></span><?php echo $email; ?></p></li>
-                        <li><p><span class="glyphicon glyphicon-map-marker one" style="width:50px;"></span><?php echo '('.strtoupper($course).')' ?></p></li>
                         <li><p><span class="glyphicon glyphicon-tower" style="width:50px;"></span><?php echo "Date Of Joining: ".$date_of_joinig; ?></p></li>
                     </ul>
                 </div>

@@ -74,12 +74,6 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
                     ?>
                     <th><div style="background-color: black; color: white; padding-left:20px;padding-right: 20px;padding-bottom: 1px;padding-top: 1px;"><h3>Total Mentors</h3><p><?php echo $sql_find_mentor_total['total_mentor']; ?></p></div></th>
                     <?php
-                    $sql_find_hod = "SELECT count(eid) AS total_hod FROM teachers WHERE  position='hod'";
-                    $sql_find_hod_get=mysqli_query($conn,$sql_find_hod);
-                    $sql_find_hod_total = mysqli_fetch_assoc($sql_find_hod_get);
-                    ?>
-                    <th><div style="background-color: blue; color: white; padding-left:20px;padding-right: 20px;padding-bottom: 1px;padding-top: 1px;"><h3>Total HOD's</h3><p><?php echo $sql_find_hod_total['total_hod']?></p></div></th>
-                    <?php
                     $sql_find_teacher = "SELECT count(eid) AS total_teacher FROM teachers WHERE  position='teacher'";
                     $sql_find_teacher_get=mysqli_query($conn,$sql_find_teacher);
                     $sql_find_teacher_total = mysqli_fetch_assoc($sql_find_teacher_get);

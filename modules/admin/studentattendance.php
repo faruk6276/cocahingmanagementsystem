@@ -98,7 +98,7 @@ if($status == 'yes' || $status == 'Yes') {
         <?php
             $sid_get = mysqli_real_escape_string($conn,$_POST['stid']);
             $st_get_date = $_POST['dateofatt'];
-            $get_attendance = "SELECT * FROM attendance WHERE sid='$sid_get' AND date='$st_get_date' AND course='$course'";
+            $get_attendance = "SELECT * FROM attendance WHERE sid='$sid_get' AND date='$st_get_date'";
             $get_attendance_check = mysqli_query($conn,$get_attendance);
             while($get_attendance_rows=mysqli_fetch_assoc($get_attendance_check)){ ?>
                 <tr>
@@ -118,7 +118,7 @@ if($status == 'yes' || $status == 'Yes') {
 <?php
     if(isset($_GET['attendanceid'])){
         $get_stid = (int)$_GET['attendanceid'];
-        $sql_get_details = "SELECT * FROM attendance WHERE id='$get_stid' AND center='$center' AND course='$course'";
+        $sql_get_details = "SELECT * FROM attendance WHERE id='$get_stid'";
         $sql_get_details_check = mysqli_query($conn,$sql_get_details);
         $war = mysqli_fetch_assoc($sql_get_details_check);?>
         <div align="center">
@@ -153,7 +153,7 @@ if($status == 'yes' || $status == 'Yes') {
     <?php
         if(isset($_POST['update'])){
             $newstatus = mysqli_real_escape_string($conn,$_POST['updatestatus']);
-            $sql_updat_status = "UPDATE attendance SET status='$newstatus' WHERE id='$get_stid' AND center='$center' AND course='$course'";
+            $sql_updat_status = "UPDATE attendance SET status='$newstatus' WHERE id='$get_stid'";
             $sql_updat_status_query = mysqli_query($conn,$sql_updat_status);
             if($sql_updat_status_query){
                 echo '<script>alert("Successfully done")</script>';

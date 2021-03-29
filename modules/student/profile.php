@@ -62,19 +62,20 @@ while($rows = mysqli_fetch_assoc($sql_profile_check)){
             <?php echo $fname . " " . $lname . " (" . strtoupper($sid) . ")" ?></a>
     </div>
 </div>
-<div id="mySidenav" class="sidenav">
-    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-    <a href="index.php" class="logo"><span style="color:red;font-size:70px">CIMS</span></a>
-    <a href="profile.php"><?php echo $fname . " " . $lname . " (" . strtoupper($sid) . ")" ?></a>
-    <a href="index.php">Home</a>
-    <a href="attendance.php">Attendance</a>
-    <a href="timetable.php">TimeTable</a>
-    <a href="marks.php">Marks</a>
-    <a href="fees.php">Fees</a>
-    <a href="complaint.php">Complaint</a>
-    <a href="password_update.php">Update Password</a>
-    <a href="../../logout.php">Logout</a>
-</div>
+ <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="index.php" class="logo"><span style="color:red;font-size:70px">CIMS</span></a>
+        <a href="profile.php"><?php echo $fname . " " . $lname . " (" . strtoupper($sid) . ")" ?></a>
+        <a href="index.php">Home</a>
+        <a href="attendance.php">Attendance</a>
+        <a href="timetable.php">TimeTable</a>
+        <a href="marks.php">Marks</a>
+        <a href="notice.php">Notices</a>
+        <a href="fees.php">Fees</a>
+        <a href="complaint.php">Complaint</a>
+        <a href="password_update.php">Update Password</a>
+        <a href="../../logout.php">Logout</a>
+    </div>
 <div class="container">
     <div class="jumbotron">
         <div class="row">
@@ -90,7 +91,6 @@ while($rows = mysqli_fetch_assoc($sql_profile_check)){
                     <li><p><span class="glyphicon glyphicon-ok-sign" style="width:50px;"></span><?php echo $sid.' ( PID:'.$pid.')'; ?></p></li>
                     <li><p><span class="glyphicon glyphicon-earphone one" style="width:50px;"></span><?php echo '+91 '.$mobile; ?></p></li>
                     <li><p><span class="glyphicon glyphicon-envelope one" style="width:50px;"></span><?php echo $email; ?></p></li>
-                    <li><p><span class="glyphicon glyphicon-map-marker one" style="width:50px;"></span><?php echo '('.strtoupper($course).')' ?></p></li>
                     <li><p><span class="glyphicon glyphicon-tower" style="width:50px;"></span><?php echo $batch.' ('.strtoupper($timing).')'; ?></p></li>
                 </ul>
             </div>

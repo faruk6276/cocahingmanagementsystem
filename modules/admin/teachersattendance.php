@@ -97,7 +97,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
                        EID :<select name="teacher_eid">
                             <option value="none">Select EID</option>
                         <?php
-                            $sql_get_teacher = "SELECT * FROM teachers WHERE NOT position='admin' order by eid";
+                            $sql_get_teacher = "SELECT * FROM teachers WHERE NOT position='admin' and NOT position='sadmin' order by eid";
                             $sql_get_teacher_q = mysqli_query($conn,$sql_get_teacher);
                             while($teachereid = mysqli_fetch_assoc($sql_get_teacher_q)){
                         ?>
@@ -148,7 +148,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
                 EID :<select name="teacher_eid_update">
                     <option value="none">Select EID</option>
                     <?php
-                    $sql_get_teacher = "SELECT * FROM teachers WHERE NOT position='admin' order by eid";
+                    $sql_get_teacher = "SELECT * FROM teachers WHERE NOT position='admin' and NOT position='sadmin' order by eid";
                     $sql_get_teacher_q = mysqli_query($conn,$sql_get_teacher);
                     while($teachereid = mysqli_fetch_assoc($sql_get_teacher_q)){
                         ?>

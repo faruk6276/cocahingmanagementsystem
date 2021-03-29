@@ -49,6 +49,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
             <a href="search.php">Search Student Information</a>
             <a href="markattendance.php">Mark Attendance</a>
             <a href="markmarks.php">Mark Marks</a>
+            <a href="addexamandnotice.php">Add Exam and notice</a>
             <a href="timetable.php">TimeTable</a>
             <a href="complaint.php">Complaint</a>
             <a href="update_password.php">Update Password</a>

@@ -35,20 +35,21 @@ $day = date("l");
             <?php echo $fname . " " . $lname . " (" . strtoupper($eid) . ")" ?></a>
     </div>
 </div>
-<div id="mySidenav" class="sidenav">
-    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-    <a href="index.php" class="logo"><span style="color:red;font-size:70px">CIMS</span></a>
-    <a href="profile.php"><?php echo $fname . " " . $lname . " (" . strtoupper($eid) . ")" ?></a>
-    <a href="index.php">Home</a>
-    <a href="attendance.php">Attendance</a>
-    <a href="search.php">Search Student Information</a>
-    <a href="markattendance.php">Mark Attendance</a>
-    <a href="markmarks.php">Mark Marks</a>
-    <a href="timetable.php">TimeTable</a>
-    <a href="complaint.php">Complaint</a>
-    <a href="update_password.php">Update Password</a>
-    <a href="../../../logout.php">Logout</a>
-</div>
+        <div id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <a href="index.php" class="logo"><span style="color:red;font-size:70px">CIMS</span></a>
+            <a href="profile.php"><?php echo $fname . " " . $lname . " (" . strtoupper($eid) . ")" ?></a>
+            <a href="index.php">Home</a>
+            <a href="attendance.php">Attendance</a>
+            <a href="search.php">Search Student Information</a>
+            <a href="markattendance.php">Mark Attendance</a>
+            <a href="markmarks.php">Mark Marks</a>
+            <a href="addexamandnotice.php">Add Exam and notice</a>
+            <a href="timetable.php">TimeTable</a>
+            <a href="complaint.php">Complaint</a>
+            <a href="update_password.php">Update Password</a>
+            <a href="../../../logout.php">Logout</a>
+        </div>
 <h2 style="color: green; background-color: lightgray;padding: 10px" align="center">Details Of Complaint</h2>
 <div style=" float: left;border: 6px solid red;width: 100%;border-radius: 20px" align="center">
 

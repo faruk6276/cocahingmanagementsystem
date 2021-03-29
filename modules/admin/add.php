@@ -10,8 +10,6 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
     if($row = mysqli_fetch_assoc($result)){
         $fname= ucfirst($row['fname']);
         $lname = ucfirst($row['lname']);
-        #$center = $row['center'];
-        $course = $row['course'];
         $status = $row['status'];
     }
     if($status == 'yes' || $status == 'Yes') {
@@ -91,6 +89,14 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
                     <form method="post">
                         <b>Batch: </b><input type="text" name="batch" placeholder="Enter Batch">
                         <br><b>Timings: </b><input type="text" name="timings" placeholder="Enter Batch timings">
+                        <br>Select Class:<select name="class">
+                            <option value="Select class">Select Class</option>
+                            <option value=6>6</option>
+                            <option value=7>7</option>
+                            <option value=8>8</option>
+                            <option value=9>9</option>
+                            <option value=10>10</option>
+                        </select>
                         <br><input type="submit" name="batchadd">
                     </form>
                 </div>
@@ -99,7 +105,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
                 if(isset($_POST['batchadd'])){
                     $batch_get = mysqli_real_escape_string($conn,$_POST['batch']);
                     $timings_get = mysqli_real_escape_string($conn,$_POST['timings']);
-
+                    $class_get = mysqli_real_escape_string($conn,$_POST['class']);
                     $sql_select_batch = "SELECT batch FROM batches WHERE batch='$batch_get'";
                     $sql_select_batch_query =mysqli_query($conn,$sql_select_batch);
                     $sql_select_batch_query_chekc = mysqli_num_rows($sql_select_batch_query);
@@ -107,7 +113,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
                     {
                         echo '<script>alert("Batch Already exists")</script>';
                     }else{
-                        $sql_insert_into_batch = "INSERT INTO batches (batch,timings,year) VALUES ('$batch_get','$timings_get','2018')";
+                        $sql_insert_into_batch = "INSERT INTO batches (batch,timings,year,class) VALUES ('$batch_get','$timings_get','2021','$class_get')";
                         $sql_insert_into_batch_query = mysqli_query($conn,$sql_insert_into_batch);
                         if($sql_insert_into_batch_query){
                             echo '<script>alert("Successfully done")</script>';
@@ -128,12 +134,12 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
                         Timings:<input type="text" name="timings" placeholder="Enter Timing of Class">
                         <br>Day:<select name="day">
                             <option value="Select Day">Select Day</option>
+                            <option value="Saturday">Saturday</option>
+                            <option value="Sunday">Sunday</option>
                             <option value="Monday">Monday</option>
                             <option value="Tuesday">Tuesday</option>
                             <option value="Wednesday">Wednesday</option>
                             <option value="Thursday">Thursday</option>
-                            <option value="Friday">Friday</option>
-                            <option value="Saturday">Saturday</option>
                         </select>
                         Batch: <select name="batch">
                             <option value="none">Select Batch</option>
@@ -148,10 +154,10 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
                         Teacher:<select name="teacher">
                             <option value="none">Select Teacher</option>
                             <?php
-                                $get_teacher = "SELECT eid FROM teachers order by eid";
+                                $get_teacher = "SELECT eid,fname FROM teachers where position='Teacher' order by eid";
                                 $get_teacher_query = mysqli_query($conn,$get_teacher);
                                 while ($get_teacher_values = mysqli_fetch_assoc($get_teacher_query)){ ?>
-                                    <option value="<?php echo $get_teacher_values['eid']?>"><?php echo $get_teacher_values['eid'] ?></option>
+                                    <option value="<?php echo $get_teacher_values['eid']?>"><?php echo $get_teacher_values['fname'] ?></option>
                                 <?php }
                             ?>
                         </select>
@@ -172,7 +178,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
                  if($sq_get_result>0){
                      echo '<script>alert("Time Table Already exists")</script>';
                  }else{
-                     $sqli_insert = "INSERT INTO timetable(center, batch, subject, timing, eid, day, year) VALUES ('$center','$get_batch','$get_subject','$get_timings','$get_teacher_eid','$get_day','2018')";
+                     $sqli_insert = "INSERT INTO timetable(batch, subject, timing, eid, day, year) VALUES ('$get_batch','$get_subject','$get_timings','$get_teacher_eid','$get_day','2018')";
                      $sqli_insert_check = mysqli_query($conn,$sqli_insert);
                      if($sqli_insert_check ){
                          echo '<script>alert("Successfully done")</script>';

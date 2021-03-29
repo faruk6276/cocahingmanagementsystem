@@ -23,7 +23,6 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
         $position = $rows['position'];
         $subject = $rows['subject'];
         $status = $rows['status'];
-        $center = $rows['center'];
         $course = $rows['course'];
         if(isset($rows['highestqualification'])){
             $qual = $rows['highestqualification'];
@@ -52,7 +51,6 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
         </style>
     </head>
     <body>
-    <h2 align="center" style="color: blue"><?php echo ucfirst($center) . ' (' . strtoupper($course) . ')' ?></h2>
     <div class="header">
 
         <span style="font-size:30px;cursor:pointer" class="logo" onclick="openNav()">&#9776; open </span>
@@ -85,14 +83,13 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
                 </div>
                 <div class="col-md-8 col-xs-12 col-sm-6 col-lg-8">
                     <div class="container" style="border-bottom:1px solid black">
-                        <h2><?php echo $fname.' '.$lname.' ('.ucfirst($position).':'.ucfirst($center).')'; ?></h2>
+                        <h2><?php echo $fname.' '.$lname.' ('.ucfirst($position).')'; ?></h2>
                     </div>
                     <hr>
                     <ul class="container details">
                         <li><p><span class="glyphicon glyphicon-ok-sign" style="width:50px;"></span><?php echo $eid.' (Admin)'; ?></p></li>
                         <li><p><span class="glyphicon glyphicon-earphone one" style="width:50px;"></span><?php echo '+91 '.$mobile; ?></p></li>
                         <li><p><span class="glyphicon glyphicon-envelope one" style="width:50px;"></span><?php echo $email; ?></p></li>
-                        <li><p><span class="glyphicon glyphicon-map-marker one" style="width:50px;"></span><?php echo ucfirst($center).'('.strtoupper($course).')' ?></p></li>
                         <li><p><span class="glyphicon glyphicon-tower" style="width:50px;"></span><?php echo "Date Of Joining: ".$date_of_joinig; ?></p></li>
                     </ul>
                 </div>

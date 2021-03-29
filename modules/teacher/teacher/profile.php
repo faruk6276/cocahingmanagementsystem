@@ -57,20 +57,21 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
                 <?php echo $fname . " " . $lname . " (" . strtoupper($eid) . ")" ?></a>
         </div>
     </div>
-    <div id="mySidenav" class="sidenav">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a href="index.php" class="logo"><span style="color:red;font-size:70px">CIMS</span></a>
-        <a href="profile.php"><?php echo $fname . " " . $lname . " (" . strtoupper($eid) . ")" ?></a>
-        <a href="index.php">Home</a>
-        <a href="attendance.php">Attendance</a>
-        <a href="search.php">Search Student Information</a>
-        <a href="markattendance.php">Mark Attendance</a>
-        <a href="markmarks.php">Mark Marks</a>
-        <a href="timetable.php">TimeTable</a>
-        <a href="complaint.php">Complaint</a>
-        <a href="update_password.php">Update Password</a>
-        <a href="../../../logout.php">Logout</a>
-    </div>
+        <div id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <a href="index.php" class="logo"><span style="color:red;font-size:70px">CIMS</span></a>
+            <a href="profile.php"><?php echo $fname . " " . $lname . " (" . strtoupper($eid) . ")" ?></a>
+            <a href="index.php">Home</a>
+            <a href="attendance.php">Attendance</a>
+            <a href="search.php">Search Student Information</a>
+            <a href="markattendance.php">Mark Attendance</a>
+            <a href="markmarks.php">Mark Marks</a>
+            <a href="addexamandnotice.php">Add Exam and notice</a>
+            <a href="timetable.php">TimeTable</a>
+            <a href="complaint.php">Complaint</a>
+            <a href="update_password.php">Update Password</a>
+            <a href="../../../logout.php">Logout</a>
+        </div>
     <div class="container">
         <div class="jumbotron">
             <div class="row">
@@ -86,7 +87,6 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
                         <li><p><span class="glyphicon glyphicon-ok-sign" style="width:50px;"></span><?php echo $eid.' ('.ucfirst($subject).')'; ?></p></li>
                         <li><p><span class="glyphicon glyphicon-earphone one" style="width:50px;"></span><?php echo '+91 '.$mobile; ?></p></li>
                         <li><p><span class="glyphicon glyphicon-envelope one" style="width:50px;"></span><?php echo $email; ?></p></li>
-                        <li><p><span class="glyphicon glyphicon-map-marker one" style="width:50px;"></span><?php echo '('.strtoupper($course).')' ?></p></li>
                         <li><p><span class="glyphicon glyphicon-tower" style="width:50px;"></span><?php echo "Date Of Joining: ".$date_of_joinig; ?></p></li>
                     </ul>
                 </div>
