@@ -137,6 +137,14 @@ while ($row = mysqli_fetch_assoc($res)) {
 if(isset($_POST['delete'])){
         $del_id=$_POST['id'];
         $delete_video="DELETE FROM videos where id='$del_id'";
+        $del =  mysqli_query($conn, $delete_video);
+         if($del){
+                            echo '<script>alert("Successfully done")</script>';
+                            echo '<script>location.href="addvideo.php"</script>';
+                        }else{
+                            echo '<script>alert("Something went wrong")</script>';
+                            echo '<script>location.href="addvideo.php"</script>';
+                        }
     }
                     ?>
         </body>
