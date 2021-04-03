@@ -10,7 +10,6 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
     if($row = mysqli_fetch_assoc($result)){
         $fname= ucfirst($row['fname']);
         $lname = ucfirst($row['lname']);
-        $course = $row['course'];
         $status = $row['status'];
     }
 
@@ -21,22 +20,12 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
         <html>
         <head>
             <meta name="viewport" content="width=device-width, initial-scale=1">
-            <title>TimeTable-Teachers-CIMS</title>
+            <title>TimeTable-Teachers-OCTH</title>
             <link rel="stylesheet" type="text/css" href="css/style.css">
         </head>
         <body>
         <div class="header">
-
-            <span style="font-size:30px;cursor:pointer" class="logo" onclick="openNav()">&#9776; open </span>
-
-            <div class="header-right">
-                <a href="profile.php">
-                    <?php echo $fname . " " . $lname . " (" . strtoupper($eid) . ")" ?></a>
-            </div>
-        </div>
-        <div id="mySidenav" class="sidenav">
-            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-            <a href="index.php" class="logo"><span style="color:red;font-size:70px">CIMS</span></a>
+        <a href="index.php" class="logo"><span style="color:red;font-size:70px">CIMS</span></a>
             <a href="profile.php"><?php echo $fname . " " . $lname . " (" . strtoupper($eid) . ")" ?></a>
             <a href="index.php">Home</a>
             <a href="attendance.php">Attendance</a>
@@ -77,7 +66,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
                 </tr>
 
                 <?php
-                $sql_time = "SELECT * FROM timetable WHERE course = '$course' AND day ='$day' AND eid = '$eid'";
+                $sql_time = "SELECT * FROM timetable WHERE  day ='$day' AND eid = '$eid'";
                 $sql_time_result = mysqli_query($conn, $sql_time);
                 $sql_time_result_check = mysqli_num_rows($sql_time_result);
                 $j = 0;

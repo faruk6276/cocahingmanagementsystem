@@ -23,7 +23,6 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
         $position = $rows['position'];
         $subject = $rows['subject'];
         $status = $rows['status'];
-        $course = $rows['course'];
         if(isset($rows['highestqualification'])){
             $qual = $rows['highestqualification'];
             $mark = $rows['highestqualificationmarks'];
@@ -51,30 +50,21 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
         </style>
     </head>
     <body>
-    <div class="header">
-
-        <span style="font-size:30px;cursor:pointer" class="logo" onclick="openNav()">&#9776; open </span>
-
-        <div class="header-right">
-            <a href="profile.php">
-                <?php echo $fname . " " . $lname . " (" . strtoupper($eid) . ")" ?></a>
+<body>
+        <div class="header">
+            <a href="index.php" class="logo"><span style="color:red;font-size:70px">OCTH</span></a>
+            <a href="index.php">Home</a>
+            <a href="student.php">Student</a>
+            <a href="studentattendance.php">Student Attendance</a>
+            <a href="teachers.php">Teachers</a>
+            <a href="teachersattendance.php">Teachers Attendance</a>
+            <a href="add.php">Add TimeTable/batch</a>
+            <a href="addvideo.php">AddVideo</a>
+            <a href="incomingcomplaint.php">Incoming Complaint</a>
+            <a href="update_password.php">Update Password</a>
+            <a href="profile.php"><?php echo $fname . " " . $lname . " (" . strtoupper($eid) . ")" ?></a>
+            <a href="../../logout.php">Logout</a>
         </div>
-    </div>
-    <div id="mySidenav" class="sidenav">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a href="index.php" class="logo"><span style="color:red;font-size:70px">CIMS</span></a>
-        <a href="profile.php"><?php echo $fname . " " . $lname . " (" . strtoupper($eid) . ")" ?></a>
-        <a href="index.php">Home</a>
-        <a href="student.php">Student</a>
-        <a href="studentattendance.php">Student Attendance</a>
-        <a href="teachers.php">Teachers</a>
-        <a href="teachersattendance.php">Teachers Attendance</a>
-        <a href="add.php">Add TimeTable/batch</a>
-        <a href="complaint.php">Complaint</a>
-        <a href="incomingcomplaint.php">Incoming Complaint</a>
-        <a href="update_password.php">Update Password</a>
-        <a href="../../logout.php">Logout</a>
-    </div>
     <div class="container">
         <div class="jumbotron">
             <div class="row">

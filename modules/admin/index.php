@@ -1,6 +1,4 @@
 <?php
-
-
 session_start();
 if(isset($_SESSION['id']) && isset($_SESSION['username'])){
     include("../../config/database.php");
@@ -12,7 +10,6 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
     if($row = mysqli_fetch_assoc($result)){
         $fname= ucfirst($row['fname']);
         $lname = ucfirst($row['lname']);
-        $course = $row['course'];
         $status = $row['status'];
     }
     if($status == 'yes' || $status == 'Yes') {
@@ -21,35 +18,29 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
         <html>
         <head>
             <meta name="viewport" content="width=device-width, initial-scale=1">
-            <title>Admin-CIMS</title>
-            <link rel="stylesheet" type="text/css" href="css/style.css">
+            <title>Admin-OCTH</title>
+            <link rel="stylesheet" type="text/css" href="css/style.css">       
+            <link rel="stylesheet" href="../../css/bootstrap.min.css" />
+             <script src="../../js/jquery-3.3.1.min.js"></script>
+            <script src="../../js/bootstrap.min.js"></script>
         </head>
         <body>
+        <h2 align="center" style="color: blue"><?php echo "Admin" ?></h2>
         <div class="header">
-
-            <span style="font-size:30px;cursor:pointer" class="logo" onclick="openNav()">&#9776; open </span>
-
-            <div class="header-right">
-                <a href="profile.php">
-                    <?php echo $fname . " " . $lname . " (" . strtoupper($eid) . ")" ?></a>
-            </div>
-        </div>
-        <div id="mySidenav" class="sidenav">
-            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-            <a href="index.php" class="logo"><span style="color:red;font-size:70px">CIMS</span></a>
-            <a href="profile.php"><?php echo $fname . " " . $lname . " (" . strtoupper($eid) . ")" ?></a>
+            <a href="index.php" class="logo"><span style="color:red;font-size:70px">OCTH</span></a>
             <a href="index.php">Home</a>
             <a href="student.php">Student</a>
             <a href="studentattendance.php">Student Attendance</a>
             <a href="teachers.php">Teachers</a>
             <a href="teachersattendance.php">Teachers Attendance</a>
             <a href="add.php">Add TimeTable/batch</a>
-            <a href="complaint.php">Complaint</a>
+            <a href="addvideo.php">AddVideo</a>
             <a href="incomingcomplaint.php">Incoming Complaint</a>
             <a href="update_password.php">Update Password</a>
+            <a href="profile.php"><?php echo $fname . " " . $lname . " (" . strtoupper($eid) . ")" ?></a>
             <a href="../../logout.php">Logout</a>
         </div>
-
+        </div>
         <div align="center">
             <table cellpadding="10px">
                 <tr>
@@ -68,11 +59,11 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
                     <th><div style="background-color: red; color:white; padding-left:20px;padding-right: 20px;padding-bottom: 1px;padding-top: 1px;"><h3>Total Students</h3><p><?php echo $sql_find_sid_total['total_sid'];?></p></div></th>
 
                     <?php
-                    $sql_find_mentor = "SELECT count(eid) AS total_mentor FROM teachers WHERE position='mentor'";
-                    $sql_find_mentor_get=mysqli_query($conn,$sql_find_mentor);
-                    $sql_find_mentor_total = mysqli_fetch_assoc($sql_find_mentor_get);
+                    $sql_find_parent = "SELECT count(id) AS total_parent FROM users WHERE type='parent'";
+                    $sql_find_parent_get=mysqli_query($conn,$sql_find_parent);
+                    $sql_find_parent_total = mysqli_fetch_assoc($sql_find_parent_get);
                     ?>
-                    <th><div style="background-color: black; color: white; padding-left:20px;padding-right: 20px;padding-bottom: 1px;padding-top: 1px;"><h3>Total Mentors</h3><p><?php echo $sql_find_mentor_total['total_mentor']; ?></p></div></th>
+                    <th><div style="background-color: black; color: white; padding-left:20px;padding-right: 20px;padding-bottom: 1px;padding-top: 1px;"><h3>Total Parentss</h3><p><?php echo $sql_find_parent_total['total_parent']; ?></p></div></th>
                     <?php
                     $sql_find_teacher = "SELECT count(eid) AS total_teacher FROM teachers WHERE  position='teacher'";
                     $sql_find_teacher_get=mysqli_query($conn,$sql_find_teacher);
@@ -85,33 +76,25 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
         </div>
 
         <div align="center" style="background-color: lightgray; padding: 10px;">
-            <h3 style="color: blue">Batch And Batch Mentors</h3>
+            <h3 style="color: blue">Batches</h3>
             <table border="1" cellpadding="10px">
                 <tr>
                     <th width="250px">Batches</th>
-                    <th width="250px">Mentor Id</th>
+                    <th width="250px">Timings</th>
+
                 </tr>
                 <?php
-                    $get_batch_information = "SELECT * FROM batches";
+                    $get_batch_information = "SELECT * FROM batches ORDER BY batch";
                     $get_batch_information_query = mysqli_query($conn,$get_batch_information);
                     while($rwo = mysqli_fetch_assoc($get_batch_information_query)){
                 ?>
                         <tr>
                             <th><?php echo $rwo['batch']?></th>
-                            <th><?php echo $rwo['mentor']?></th>
+                            <td><?php echo $rwo['timings']?></td>
                         </tr>
                       <?php }  ?>
             </table>
         </div>
-        <script>
-            function openNav() {
-                document.getElementById("mySidenav").style.width = "250px";
-            }
-
-            function closeNav() {
-                document.getElementById("mySidenav").style.width = "0";
-            }
-        </script>
         </body>
         </html>
         <?php

@@ -10,8 +10,6 @@ $resultcheck = mysqli_num_rows($result);
 if($row = mysqli_fetch_assoc($result)){
     $fname= ucfirst($row['fname']);
     $lname = ucfirst($row['lname']);
-    #$center = $row['center'];
-    $course = $row['course'];
     $status = $row['status'];
 }
 if($status == 'yes' || $status == 'Yes') {
@@ -19,9 +17,12 @@ if($status == 'yes' || $status == 'Yes') {
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Admin-CIMS</title>
-    <link rel="stylesheet" type="text/css" href="css/style.css">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <title>Admin-OCTH</title>
+            <link rel="stylesheet" type="text/css" href="css/style.css">       
+            <link rel="stylesheet" href="../../css/bootstrap.min.css" />
+             <script src="../../js/jquery-3.3.1.min.js"></script>
+            <script src="../../js/bootstrap.min.js"></script>
     <style>
         .linking{
             background-color: #ddffff;
@@ -54,29 +55,19 @@ if($status == 'yes' || $status == 'Yes') {
 </head>
 <body>
 <div class="header">
-
-    <span style="font-size:30px;cursor:pointer" class="logo" onclick="openNav()">&#9776; open </span>
-
-    <div class="header-right">
-        <a href="profile.php">
-            <?php echo $fname . " " . $lname . " (" . strtoupper($eid) . ")" ?></a>
-    </div>
-</div>
-<div id="mySidenav" class="sidenav">
-    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-    <a href="index.php" class="logo"><span style="color:red;font-size:70px">CIMS</span></a>
-    <a href="profile.php"><?php echo $fname . " " . $lname . " (" . strtoupper($eid) . ")" ?></a>
-    <a href="index.php">Home</a>
-    <a href="student.php">Student</a>
-    <a href="studentattendance.php">Student Attendance</a>
-    <a href="teachers.php">Teachers</a>
-    <a href="teachersattendance.php">Teachers Attendance</a>
-    <a href="add.php">Add TimeTable/batch</a>
-    <a href="complaint.php">Complaint</a>
-    <a href="incomingcomplaint.php">Incoming Complaint</a>
-    <a href="update_password.php">Update Password</a>
-    <a href="../../logout.php">Logout</a>
-</div>
+            <a href="index.php" class="logo"><span style="color:red;font-size:70px">OCTH</span></a>
+            <a href="index.php">Home</a>
+            <a href="student.php">Student</a>
+            <a href="studentattendance.php">Student Attendance</a>
+            <a href="teachers.php">Teachers</a>
+            <a href="teachersattendance.php">Teachers Attendance</a>
+            <a href="add.php">Add TimeTable/batch</a>
+            <a href="addvideo.php">AddVideo</a>
+            <a href="incomingcomplaint.php">Incoming Complaint</a>
+            <a href="update_password.php">Update Password</a>
+            <a href="profile.php"><?php echo $fname . " " . $lname . " (" . strtoupper($eid) . ")" ?></a>
+            <a href="../../logout.php">Logout</a>
+        </div>
 <div align="center">
     <form method="post">
         <h4>Update Student Attendance</h4>

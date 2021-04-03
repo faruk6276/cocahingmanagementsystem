@@ -10,7 +10,6 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
     if ($row = mysqli_fetch_assoc($result)) {
         $fname = ucfirst($row['fname']);
         $lname = ucfirst($row['lname']);
-        $course = $row['course'];
         $batch = $row['batch'];
     }
     $ydate = date('Y-m-d');
@@ -20,22 +19,12 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
     <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Marks-Students-CIMS</title>
+        <title>Marks-Students-OCTH</title>
         <link rel="stylesheet" type="text/css" href="css/style.css">
     </head>
     <body>
-    <div class="header">
-
-        <span style="font-size:30px;cursor:pointer" class="logo" onclick="openNav()">&#9776; open </span>
-
-        <div class="header-right">
-            <a href="profile.php">
-                <?php echo $fname . " " . $lname . " (" . strtoupper($sid) . ")" ?></a>
-        </div>
-    </div>
- <div id="mySidenav" class="sidenav">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a href="index.php" class="logo"><span style="color:red;font-size:70px">CIMS</span></a>
+     <div class="header">
+        <a href="index.php" class="logo"><span style="color:red;font-size:70px">OCTH</span></a>
         <a href="profile.php"><?php echo $fname . " " . $lname . " (" . strtoupper($sid) . ")" ?></a>
         <a href="index.php">Home</a>
         <a href="attendance.php">Attendance</a>
@@ -52,7 +41,6 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
         <table border="2" align="center" cellpadding="5px">
             <tr>
                 <th>SID</th>
-                <th>Course</th>
                 <th>Batch</th>
                 <th>Total Fees</th>
                 <th>Total Fee To Pay</th>
@@ -64,7 +52,6 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
             $resulti = mysqli_query($conn, $sqli);
             $resultchecki = mysqli_num_rows($resulti);
             while ($rows = mysqli_fetch_assoc($resulti)) {
-                $course = $rows['course'];
                 $batch = $rows['batch'];
                 $fees = $rows['fee'];
                 $paid_fees = $rows['paidfee'];
@@ -73,7 +60,6 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
                 ?>
                 <tr align="center">
                     <td><?php echo strtoupper($sid); ?></td>
-                    <td><?php echo strtoupper($course); ?></td>
                     <td><?php echo ucfirst($batch); ?></td>
                     <td><?php echo $fees; ?></td>
                     <td><?php echo $newfee; ?></td>

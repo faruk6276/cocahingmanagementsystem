@@ -12,8 +12,6 @@ $resultcheck = mysqli_num_rows($result);
 if($row = mysqli_fetch_assoc($result)){
     $fname= ucfirst($row['fname']);
     $lname = ucfirst($row['lname']);
-    $center = $row['center'];
-    $course = $row['course'];
     $status = $row['status'];
 }
 if($status == 'yes' || $status == 'Yes') {
@@ -84,7 +82,6 @@ $get_complaintid = (int)$_GET['complaintid'];
     {
         $roee = mysqli_fetch_assoc($sql_query); ?>
     <h4><b class="new">Username:</b> <?php echo $roee['username']; ?></h4>
-        <h4><b class="new">Center:</b> <?php echo $roee['center']; ?></h4>
         <h4><b class="new">Subject:</b> <?php echo ucfirst($roee['subject']); ?></h4>
         <h4><b class="new">Complaint:</b> <br><?php echo ucfirst($roee['complaint']); ?></h4>
         <h4><b class="new">Date Of Complaint:</b><?php echo $roee['dateofcomp']; ?></h4><hr>

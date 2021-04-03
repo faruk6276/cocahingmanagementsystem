@@ -68,42 +68,77 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
             <a href="profile.php"><?php echo $fname . " " . $lname . " (" . strtoupper($eid) . ")" ?></a>
             <a href="../../logout.php">Logout</a>
         </div>
-        <div align="center">
-            <h4>Update Password -<span style="color: blue;"> <?php echo $eid?></span></h4>
-            <form  method="post">
-                <b>Old Password: </b><input type="password" name="oldpassword" placeholder="Enter Old Password" required><br>
-                <b>New Password: </b><input type="password" name="newpassword_one" placeholder="Enter New Password" required><br>
-                <b>New Password Again: </b><input type="password" name="newpassword_again" placeholder="Enter New Password Again" required><br>
-                <input type="submit" name="changepassword" value="Change Password">
-            </form>
+        <div align='center'>
+        <form  method="post"  
+enctype="multipart/form-data">
+<input type="file" name="file" />
+<input type="submit" value="UPLOAD" name="upload" />
+
+</form>
         </div>
 
-        <?php
-        if(isset($_POST['changepassword'])){
-            $get_old_password=$_POST['oldpassword'];
-            $get_new_password=$_POST['newpassword_one'];
-            $get_new_password_again=$_POST['newpassword_again'];
+<?php
 
-            $searvh_pass = "SELECT * FROM users WHERE username='$eid' AND password='$get_old_password'";
-            $searvh_pass_get = mysqli_query($conn,$searvh_pass);
-            $searvh_pass_check = mysqli_num_rows($searvh_pass_get);
-            if($searvh_pass_check > 0){
-                if($get_new_password===$get_new_password_again){
-                    $update_users = "UPDATE users SET password='$get_new_password' WHERE username='$eid' AND type='admin'";
-                    $update_users_q = mysqli_query($conn,$update_users);
-                    if($update_users_q){
-                        echo '<script>alert("Password Update Success")</script>';
-                    }else{
-                        echo '<script>alert("SomeThing Went Wrong. Try Again after some time")</script>';
-                    }
-                }else{
-                    echo '<p align="center" style="color: red">*password and confirm password does not match</p>';
-                }
-            }else{
-                echo '<p align="center" style="color: red">*old password is wrong</p>';
-            }
-        }
-        ?>
+if (isset($_POST['upload'])){
+
+$name = $_FILES['file']['name'];
+
+$tmp = $_FILES['file']['tmp_name'];
+
+$exist="SELECT * from videos where name='$name'";
+$q =  mysqli_query($conn, $exist);
+$re = mysqli_num_rows($q);
+if ($re>=1){
+     echo "<div align='center'><h1> Video file already exists </h1></div>";
+}
+else{
+move_uploaded_file($tmp,"videos/" . $name);
+
+$sql = "INSERT INTO videos (name) VALUES ('$name')";
+
+$res =  mysqli_query($conn, $sql);
+
+if ($res == 1){
+
+    echo "<div align='center'><h1> video inserted successfully </h1></div>";
+}
+}
+
+}
+?>
+<?php
+
+$sql = "select * from videos";
+
+$res = mysqli_query($conn,$sql);
+
+echo "<h1>Class Videos</h1>";
+while ($row = mysqli_fetch_assoc($res)) {
+    
+    $id = $row['id'];
+    $name = $row['name'];
+
+    echo  "<h4><a href='watch.php?id=$id' > ". $name . 
+          "</a></h4>";
+    ?>
+    <video width="600" height="316" controls>
+        
+        <source src="videos/<?php  echo $name; ?>" 
+                type="video/mp4">
+    </video>
+    <form method="post" action="">
+        <input type="submit" name="delete" color="red" value="Delete"/>
+        <input type="hidden" name="id" value="<?php echo $row['id']; ?>"/>
+      </form>
+    <?php
+}
+?>
+<?php 
+if(isset($_POST['delete'])){
+        $del_id=$_POST['id'];
+        $delete_video="DELETE FROM videos where id='$del_id'";
+    }
+                    ?>
         </body>
         </html>
         <?php

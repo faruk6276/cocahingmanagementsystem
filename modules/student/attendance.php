@@ -10,7 +10,6 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
     if ($row = mysqli_fetch_assoc($result)) {
         $fname = ucfirst($row['fname']);
         $lname = ucfirst($row['lname']);
-        $course = $row['course'];
         $batch = $row['batch'];
     }
     $ydate = date('Y-m-d');
@@ -19,22 +18,12 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
     <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Attendance-Students-CIMS</title>
+        <title>Attendance-Students-OCTH</title>
         <link rel="stylesheet" type="text/css" href="css/style.css">
     </head>
     <body>
     <div class="header">
-
-        <span style="font-size:30px;cursor:pointer" class="logo" onclick="openNav()">&#9776; open </span>
-
-        <div class="header-right">
-            <a href="profile.php">
-                <?php echo $fname . " " . $lname . " (" . strtoupper($sid) . ")" ?></a>
-        </div>
-    </div>
-    <div id="mySidenav" class="sidenav">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a href="index.php" class="logo"><span style="color:red;font-size:70px">CIMS</span></a>
+        <a href="index.php" class="logo"><span style="color:red;font-size:70px">OCTH</span></a>
         <a href="profile.php"><?php echo $fname . " " . $lname . " (" . strtoupper($sid) . ")" ?></a>
         <a href="index.php">Home</a>
         <a href="attendance.php">Attendance</a>

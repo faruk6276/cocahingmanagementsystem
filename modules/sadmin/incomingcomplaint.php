@@ -10,7 +10,6 @@ $resultcheck = mysqli_num_rows($result);
 if($row = mysqli_fetch_assoc($result)){
     $fname= ucfirst($row['fname']);
     $lname = ucfirst($row['lname']);
-    $course = $row['course'];
     $status = $row['status'];
 }
 if($status == 'yes' || $status == 'Yes') {
@@ -31,27 +30,16 @@ if($status == 'yes' || $status == 'Yes') {
     <link rel="stylesheet" type="text/css" href="../admin/css/style.css">
 </head>
 <body>
-<h2 align="center" style="color: blue"><?php echo "Super Admin (Main Center)" ?></h2>
-<div class="header">
-
-    <span style="font-size:30px;cursor:pointer" class="logo" onclick="openNav()">&#9776; open </span>
-
-    <div class="header-right">
-        <a href="profile.php">
-            <?php echo $fname . " " . $lname . " (" . strtoupper($eid) . ")" ?></a>
-    </div>
-</div>
-<div id="mySidenav" class="sidenav">
-    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-    <a href="index.php" class="logo"><span style="color:red;font-size:70px">CIMS</span></a>
-    <a href="profile.php"><?php echo $fname . " " . $lname . " (" . strtoupper($eid) . ")" ?></a>
-    <a href="index.php">Home</a>
-    <a href="add.php">Add/Update</a>
-    <a href="view.php">View Details</a>
-    <a href="incomingcomplaint.php">Incoming Complaint</a>
-    <a href="update_password.php">Update Password</a>
-    <a href="../../logout.php">Logout</a>
-</div>
+ <div class="header">
+            <a href="index.php" class="logo"><span style="color:red;font-size:70px">OCTH</span></a>
+            <a href="profile.php"><?php echo $fname . " " . $lname . " (" . strtoupper($eid) . ")" ?></a>
+            <a href="index.php">Home</a>
+            <a href="add.php">Add/Update</a>
+            <a href="view.php">View Details</a>
+            <a href="incomingcomplaint.php">Incoming Complaint</a>
+            <a href="update_password.php">Update Password</a>
+            <a href="../../logout.php">Logout</a>
+        </div>
 <?php
     $sql_get_complaint = "SELECT * FROM complaint WHERE eid = '$eid' AND (teacher_type='sadmin' OR teacher_type='SAdmin') ORDER BY  dateofcomp";
     $sql_get_complaint_check = mysqli_query($conn,$sql_get_complaint);
@@ -63,7 +51,6 @@ if($status == 'yes' || $status == 'Yes') {
             <table border="2px" cellpadding="10px">
                 <tr>
                     <th>Username</th>
-                    <th>Center</th>
                     <th>Subject</th>
                     <th>Complaint</th>
                     <th>Date Of Complaint</th>
@@ -74,7 +61,6 @@ if($status == 'yes' || $status == 'Yes') {
                 ?>
                 <tr align="center">
                 <td><?php echo $rown['username']?></td>
-                <td><?php echo ucfirst($rown['center']);?></td>
                 <td><?php echo $rown['subject']?></td>
                 <td><?php echo $rown['complaint']?></td>
                 <td><?php echo $rown['dateofcomp']?></td>

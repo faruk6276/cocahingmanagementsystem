@@ -10,7 +10,6 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
     if($row = mysqli_fetch_assoc($result)){
         $fname= ucfirst($row['fname']);
         $lname = ucfirst($row['lname']);
-        $course = $row['course'];
         $status = $row['status'];
     }
     if($status == 'yes' || $status == 'Yes') {
@@ -43,22 +42,11 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
 
         </head>
         <body>
-        <h2 align="center" style="color: blue"><?php echo "Super Admin (Main Center)" ?></h2>
-        <div class="header">
-
-            <span style="font-size:30px;cursor:pointer" class="logo" onclick="openNav()">&#9776; open </span>
-
-            <div class="header-right">
-                <a href="profile.php">
-                    <?php echo $fname . " " . $lname . " (" . strtoupper($eid) . ")" ?></a>
-            </div>
-        </div>
-        <div id="mySidenav" class="sidenav">
-            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-            <a href="index.php" class="logo"><span style="color:red;font-size:70px">CIMS</span></a>
+ <div class="header">
+            <a href="index.php" class="logo"><span style="color:red;font-size:70px">OCTH</span></a>
             <a href="profile.php"><?php echo $fname . " " . $lname . " (" . strtoupper($eid) . ")" ?></a>
             <a href="index.php">Home</a>
-            <a href="add.php">Add//Update</a>
+            <a href="add.php">Add/Update</a>
             <a href="view.php">View Details</a>
             <a href="incomingcomplaint.php">Incoming Complaint</a>
             <a href="update_password.php">Update Password</a>

@@ -12,8 +12,6 @@ $resultcheck = mysqli_num_rows($result);
 if($row = mysqli_fetch_assoc($result)){
     $fname= ucfirst($row['fname']);
     $lname = ucfirst($row['lname']);
-    #$center = $row['center'];
-    $course = $row['course'];
     $status = $row['status'];
 }
 if($status == 'yes' || $status == 'Yes') {
@@ -61,7 +59,6 @@ $get_complaintid = (int)$_GET['complaintid'];
     </style>
 </head>
 <body>
-<h2 align="center" style="color: blue"><?php echo ucfirst($center) . ' (' . strtoupper($course) . ')' ?></h2>
 <div class="header">
 
     <a href="incomingcomplaint.php?ret=cancel"><span style="font-size:30px;cursor:pointer" class="logo">Go Back </span></a>
@@ -77,7 +74,7 @@ $get_complaintid = (int)$_GET['complaintid'];
 <h4>Reply To Complaint Id <?php echo $get_complaintid; ?></h4><hr>
     <form method="post">
     <?php
-    $sql = "SELECT * FROM complaint WHERE id='$get_complaintid' AND course='$course' AND eid='$eid' AND center='$center'";
+    $sql = "SELECT * FROM complaint WHERE id='$get_complaintid' AND eid='$eid' ";
     $sql_query = mysqli_query($conn,$sql);
     $sql_query_check = mysqli_num_rows($sql_query);
     if($sql_query_check>0)
@@ -91,7 +88,7 @@ $get_complaintid = (int)$_GET['complaintid'];
         <h4><b class="new">Date of reply:</b><?php echo $today_date; ?> </h4>
         <h4><b class="new">Reply:</b></h4>
         <?php
-        $sql_check = "SELECT * From complaint WHERE id='$get_complaintid' AND center='$center' AND course='$course'";
+        $sql_check = "SELECT * From complaint WHERE id='$get_complaintid'";
         $sql_check_reslut = mysqli_query($conn, $sql_check);
         $sql_check_reslut_check = mysqli_num_rows($sql_check_reslut);
         $nw = mysqli_fetch_assoc($sql_check_reslut);
@@ -115,7 +112,7 @@ $get_complaintid = (int)$_GET['complaintid'];
     if(isset($_POST['submit'])){
         $complaint_reply = $_POST['complaintreply'];
 
-            $sql_update = "UPDATE complaint SET reply='$complaint_reply',dateofreply='$today_date',replyed='1' WHERE id='$get_complaintid' AND center='$center' AND eid='$eid'";
+            $sql_update = "UPDATE complaint SET reply='$complaint_reply',dateofreply='$today_date',replyed='1' WHERE id='$get_complaintid' AND eid='$eid'";
             $sql_update_query = mysqli_query($conn, $sql_update);
             if ($sql_update_query) {
                 header("Location: incomingcomplaint.php?ret=success");

@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Bharat
- * Date: 7/1/2018
- * Time: 1:58 PM
- */
-
 session_start();
 if(isset($_SESSION['id']) && isset($_SESSION['username'])){
     include("../../../config/database.php");
@@ -17,7 +10,6 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
     if($row = mysqli_fetch_assoc($result)){
         $fname= ucfirst($row['fname']);
         $lname = ucfirst($row['lname']);
-        $course = $row['course'];
         $status = $row['status'];
         $subject = $row['subject'];
     }
@@ -27,22 +19,12 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
         <html>
         <head>
             <meta name="viewport" content="width=device-width, initial-scale=1">
-            <title>Mark Marks-Teachers-CIMS</title>
+            <title>Mark Marks-Teachers-OCTH</title>
             <link rel="stylesheet" type="text/css" href="css/style.css">
         </head>
         <body>
-        <div class="header">
-
-            <span style="font-size:30px;cursor:pointer" class="logo" onclick="openNav()">&#9776; open </span>
-
-            <div class="header-right">
-                <a href="profile.php">
-                    <?php echo $fname . " " . $lname . " (" . strtoupper($eid) . ")" ?></a>
-            </div>
-        </div>
-        <div id="mySidenav" class="sidenav">
-            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-            <a href="index.php" class="logo"><span style="color:red;font-size:70px">CIMS</span></a>
+            <div class="header">
+        <a href="index.php" class="logo"><span style="color:red;font-size:70px">CIMS</span></a>
             <a href="profile.php"><?php echo $fname . " " . $lname . " (" . strtoupper($eid) . ")" ?></a>
             <a href="index.php">Home</a>
             <a href="attendance.php">Attendance</a>

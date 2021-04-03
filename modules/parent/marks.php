@@ -10,7 +10,6 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
     if ($row = mysqli_fetch_assoc($result)) {
         $fname = ucfirst($row['fname']);
         $lname = ucfirst($row['lname']);
-        $course = $row['course'];
         $batch = $row['batch'];
     }
     $ydate = date('Y-m-d');
@@ -18,33 +17,26 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
     ?>
     <!DOCTYPE html>
     <html>
-    <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Marks-Parents-CIMS</title>
-        <link rel="stylesheet" type="text/css" href="css/style.css">
-    </head>
-    <body>
-    <div class="header">
-
-        <span style="font-size:30px;cursor:pointer" class="logo" onclick="openNav()">&#9776; open </span>
-
-        <div class="header-right">
-            <a href="../../logout.php">
-                <?php echo "Logout" ?></a>
+       <head>
+            
+            <title>Parents-OCTH</title>
+            <link rel="stylesheet" type="text/css" href="css/style.css">       
+            <link rel="stylesheet" href="../../css/bootstrap.min.css" />
+             <script src="../../js/jquery-3.3.1.min.js"></script>
+            <script src="../../js/bootstrap.min.js"></script>
+        </head>
+        <body>
+        <div class="header">
+            <a href="index.php" class="logo"><span style="color:red;font-size:70px">OCTH</span></a>
+            <a href="index.php">Home</a>
+            <a href="attendance.php">Attendance</a>
+            <a href="timetable.php">TimeTable</a>
+            <a href="marks.php">Marks</a>
+            <a href="fees.php">Fees</a>
+            <a href="video.php">Videos</a>
+            <a href="password_update.php">Update Password</a>
+            <a href="../../logout.php">Logout</a>
         </div>
-    </div>
-    <div id="mySidenav" class="sidenav">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a href="index.php" class="logo"><span style="color:red;font-size:70px">CIMS</span></a>
-        <a href="index.php">Home</a>
-        <a href="attendance.php">Attendance</a>
-        <a href="timetable.php">TimeTable</a>
-        <a href="marks.php">Marks</a>
-        <a href="fees.php">Fees</a>
-        <a href="complaint.php">Complaint</a>
-        <a href="password_update.php">Update Password</a>
-        <a href="../../logout.php">Logout</a>
-    </div>
     <div align="center">
         <table>
             <form method="post" action="marks.php">
@@ -110,7 +102,6 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
                 <th>Date OF Exam</th>
                 <th>Marks Obtain</th>
                 <th>Total Marks</th>
-                <th>Precentage</th>
                 <th>Teacher</th>
                 <th>Teacher ID (EID)</th>
             </tr>
@@ -131,7 +122,6 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
                 $marksobtain = $rows['marksobtain'];
                 $totalmarks = $rows['totalmarks'];
                 $eid = $rows['eid'];
-                $percantage = ($marksobtain/$totalmarks)*100;
                 $sql_teacher = "SELECT * FROM teachers WHERE eid = '$eid'";
                 $sql_result = mysqli_query($conn, $sql_teacher);
                 $sql_result_teacher = mysqli_num_rows($sql_result);
@@ -158,7 +148,6 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
                     <td><?php echo $dateofexam; ?></td>
                     <td><?php echo $marksobtain; ?></td>
                     <td><?php echo $totalmarks; ?></td>
-                    <td><?php echo $percantage.'%'; ?></td>
                     <td><?php echo $teacherfname . ' ' . $teacherlname ?></td>
                     <td><?php echo ucfirst($eid); ?></td>
                 </tr>

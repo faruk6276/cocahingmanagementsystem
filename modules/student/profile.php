@@ -20,7 +20,6 @@ while($rows = mysqli_fetch_assoc($sql_profile_check)){
     $paid_fees = $rows['paidfee'];
     $pid = $rows['pid'];
     $status = $rows['status'];
-    $course = $rows['course'];
     $batch = $rows['batch'];
     $class = $rows['class'];
     $fathername = $rows['fathername'];
@@ -38,7 +37,7 @@ while($rows = mysqli_fetch_assoc($sql_profile_check)){
 <!DOCTYPE html>
 <html>
 <head>
-    <title><?php echo $fname.' '.$lname ?>-Students-CIMS</title>
+    <title><?php echo $fname.' '.$lname ?>Students-OCTH</title>
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
@@ -53,18 +52,8 @@ while($rows = mysqli_fetch_assoc($sql_profile_check)){
     </style>
 </head>
 <body>
-<div class="header">
-
-    <span style="font-size:30px;cursor:pointer" class="logo" onclick="openNav()">&#9776; open </span>
-
-    <div class="header-right">
-        <a href="profile.php">
-            <?php echo $fname . " " . $lname . " (" . strtoupper($sid) . ")" ?></a>
-    </div>
-</div>
- <div id="mySidenav" class="sidenav">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a href="index.php" class="logo"><span style="color:red;font-size:70px">CIMS</span></a>
+    <div class="header">
+        <a href="index.php" class="logo"><span style="color:red;font-size:70px">OCTH</span></a>
         <a href="profile.php"><?php echo $fname . " " . $lname . " (" . strtoupper($sid) . ")" ?></a>
         <a href="index.php">Home</a>
         <a href="attendance.php">Attendance</a>

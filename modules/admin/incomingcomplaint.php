@@ -1,9 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
-
- */
-
 session_start();
 if(isset($_SESSION['id']) && isset($_SESSION['username'])){
 include("../../config/database.php");
@@ -15,8 +10,6 @@ $resultcheck = mysqli_num_rows($result);
 if($row = mysqli_fetch_assoc($result)){
     $fname= ucfirst($row['fname']);
     $lname = ucfirst($row['lname']);
-    #$center = $row['center'];
-    $course = $row['course'];
     $status = $row['status'];
 }
 if($status == 'yes' || $status == 'Yes') {
@@ -32,37 +25,62 @@ if($status == 'yes' || $status == 'Yes') {
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Imcoming Complaints-CIMS</title>
-    <link rel="stylesheet" type="text/css" href="css/style.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+            <title>Admin-OCTH</title>
+            <link rel="stylesheet" type="text/css" href="css/style.css">       
+            <link rel="stylesheet" href="../../css/bootstrap.min.css" />
+             <script src="../../js/jquery-3.3.1.min.js"></script>
+            <script src="../../js/bootstrap.min.js"></script>
+    <style>
+        .linking{
+            background-color: #ddffff;
+            padding: 7px;
+            text-decoration: none;
+        }
+        .linking:hover{
+            background-color: blue;
+            color: white;
+        }
+
+                input,button,select{
+                    padding: 5px;
+                    border: 2px solid blue;
+                    border-radius: 10px;
+                    margin: 2px;
+                }
+                input[type=submit],button{
+                    width: 200px;
+                }
+                input:hover{
+                    background-color: lightblue;
+                }
+                    input[type=submit]:hover{
+                    background-color: green;
+                        color: white;
+                }
+
+    </style>
 </head>
 <body>
-<div class="header">
-
-    <span style="font-size:30px;cursor:pointer" class="logo" onclick="openNav()">&#9776; open </span>
-
-    <div class="header-right">
-        <a href="profile.php">
-            <?php echo $fname . " " . $lname . " (" . strtoupper($eid) . ")" ?></a>
-    </div>
-</div>
-<div id="mySidenav" class="sidenav">
-    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-    <a href="index.php" class="logo"><span style="color:red;font-size:70px">CIMS</span></a>
-    <a href="profile.php"><?php echo $fname . " " . $lname . " (" . strtoupper($eid) . ")" ?></a>
-    <a href="index.php">Home</a>
-    <a href="student.php">Student</a>
-    <a href="studentattendance.php">Student Attendance</a>
-    <a href="teachers.php">Teachers</a>
-    <a href="teachersattendance.php">Teachers Attendance</a>
-    <a href="add.php">Add TimeTable/batch</a>
-    <a href="complaint.php">Complaint</a>
-    <a href="incomingcomplaint.php">Incoming Complaint</a>
-    <a href="update_password.php">Update Password</a>
-    <a href="../../logout.php">Logout</a>
-</div>
+        <div class="header">
+            <a href="index.php" class="logo"><span style="color:red;font-size:70px">OCTH</span></a>
+            <a href="index.php">Home</a>
+            <a href="student.php">Student</a>
+            <a href="studentattendance.php">Student Attendance</a>
+            <a href="teachers.php">Teachers</a>
+            <a href="teachersattendance.php">Teachers Attendance</a>
+            <a href="add.php">Add TimeTable/batch</a>
+            <a href="addvideo.php">AddVideo</a>
+            <a href="incomingcomplaint.php">Incoming Complaint</a>
+            <a href="update_password.php">Update Password</a>
+            <a href="profile.php"><?php echo $fname . " " . $lname . " (" . strtoupper($eid) . ")" ?></a>
+            <a href="../../logout.php">Logout</a>
+        </div>
+            <div align="center" style="background-color: aquamarine;padding: 10px">
+            <a href="download.php" class="linking">Download Excel</a>
+        </div>
 <?php
-    $sql_get_complaint = "SELECT * FROM complaint WHERE eid = '$eid' AND (teacher_type='admin' OR teacher_type='Admin') ORDER BY  dateofcomp";
+    $sql_get_complaint = "SELECT * FROM complaint WHERE teacher_type='admin' OR teacher_type='Admin' ORDER BY  dateofcomp";
     $sql_get_complaint_check = mysqli_query($conn,$sql_get_complaint);
     $sql_get_complaint_check_result = mysqli_num_rows($sql_get_complaint_check);
     if($sql_get_complaint_check_result>0){
@@ -99,17 +117,6 @@ if($status == 'yes' || $status == 'Yes') {
 
     <?php }
 ?>
-
-
-<script>
-    function openNav() {
-        document.getElementById("mySidenav").style.width = "250px";
-    }
-
-    function closeNav() {
-        document.getElementById("mySidenav").style.width = "0";
-    }
-</script>
 </body>
     </html>
     <?php

@@ -10,7 +10,6 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
     if($row = mysqli_fetch_assoc($result)){
         $fname= ucfirst($row['fname']);
         $lname = ucfirst($row['lname']);
-        $course = $row['course'];
         $batch = $row['batch'];
         $status = $row['status'];
     }
@@ -19,29 +18,22 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
         <!DOCTYPE html>
         <html>
         <head>
-            <meta name="viewport" content="width=device-width, initial-scale=1">
-            <title>Parents-CIMS</title>
-            <link rel="stylesheet" type="text/css" href="css/style.css">
+            
+            <title>Parents-OCTH</title>
+            <link rel="stylesheet" type="text/css" href="css/style.css">       
+            <link rel="stylesheet" href="../../css/bootstrap.min.css" />
+             <script src="../../js/jquery-3.3.1.min.js"></script>
+            <script src="../../js/bootstrap.min.js"></script>
         </head>
         <body>
         <div class="header">
-
-            <span style="font-size:30px;cursor:pointer" class="logo" onclick="openNav()">&#9776; open </span>
-
-            <div class="header-right">
-                <a href="../../logout.php">
-                    <?php echo 'Logout' ?></a>
-            </div>
-        </div>
-        <div id="mySidenav" class="sidenav">
-            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-            <a href="index.php" class="logo"><span style="color:red;font-size:70px">CIMS</span></a>
+            <a href="index.php" class="logo"><span style="color:red;font-size:70px">OCTH</span></a>
             <a href="index.php">Home</a>
             <a href="attendance.php">Attendance</a>
             <a href="timetable.php">TimeTable</a>
             <a href="marks.php">Marks</a>
             <a href="fees.php">Fees</a>
-            <a href="complaint.php">Complaint</a>
+            <a href="video.php">Videos</a>
             <a href="password_update.php">Update Password</a>
             <a href="../../logout.php">Logout</a>
         </div>
@@ -49,7 +41,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
             <h5><?php echo 'Student Name: '.$fname.' '.$lname?></h5>
 
         </div>
-        <div style="padding-left:20px; float: left;border-left: 6px solid red;background-color: lightgrey;width: 50%">
+        <div align="center" style="padding-left:20px; float: left;border-left: 6px solid red;background-color: lightgrey;width: 50%">
             <h1 align="center">Time Table</h1>
             <p align="center"><?php echo date("d-m-Y") . '<br>(' . date("l") . ')' ?></p>
             <table border="2" align="center" cellpadding="5px">
@@ -63,7 +55,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
 
                 <?php
                 $day = date("l");
-                $sql_time = "SELECT * FROM timetable WHERE batch = '$batch' AND course = '$course' AND day ='$day'";
+                $sql_time = "SELECT * FROM timetable WHERE batch = '$batch' AND day ='$day'";
                 $sql_time_result = mysqli_query($conn, $sql_time);
                 $sql_time_result_check = mysqli_num_rows($sql_time_result);
                 $j = 0;
@@ -101,7 +93,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
                     <th>Teacher ID (EID)</th>
                 </tr>
                 <?php
-                $sqli = "SELECT * FROM attendance WHERE course = '$course' AND date = '$ydate' AND sid = (SELECT sid FROM students WHERE pid = '$pid' )";
+                $sqli = "SELECT * FROM attendance WHERE date = '$ydate' AND sid = (SELECT sid FROM students WHERE pid = '$pid' )";
                 $resulti = mysqli_query($conn, $sqli);
                 $resultchecki = mysqli_num_rows($resulti);
                 $i = 0;
@@ -147,7 +139,9 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
             function closeNav() {
                 document.getElementById("mySidenav").style.width = "0";
             }
+
         </script>
+           
         </body>
         </html>
         <?php

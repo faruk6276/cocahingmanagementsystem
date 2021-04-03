@@ -17,19 +17,22 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
         <!DOCTYPE html>
         <html>
         <head>
-            <meta name="viewport" content="width=device-width, initial-scale=1">
-            <title>Admin-CIMS</title>
-            <link rel="stylesheet" type="text/css" href="css/style.css">
-            <style>
-                .linking{
-                    background-color: #ddffff;
-                    padding: 7px;
-                    text-decoration: none;
-                }
-                .linking:hover{
-                    background-color: blue;
-                    color: white;
-                }
+<meta name="viewport" content="width=device-width, initial-scale=1">
+            <title>Admin-OCTH</title>
+            <link rel="stylesheet" type="text/css" href="css/style.css">       
+            <link rel="stylesheet" href="../../css/bootstrap.min.css" />
+             <script src="../../js/jquery-3.3.1.min.js"></script>
+            <script src="../../js/bootstrap.min.js"></script>
+    <style>
+        .linking{
+            background-color: #ddffff;
+            padding: 7px;
+            text-decoration: none;
+        }
+        .linking:hover{
+            background-color: blue;
+            color: white;
+        }
 
                 input,button,select{
                     padding: 5px;
@@ -43,36 +46,26 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
                 input:hover{
                     background-color: lightblue;
                 }
-                input[type=submit]:hover{
+                    input[type=submit]:hover{
                     background-color: green;
-                    color: white;
+                        color: white;
                 }
 
-            </style>
-        </head>
-        <body>
+    </style>
+</head>
+<body>
         <div class="header">
-
-            <span style="font-size:30px;cursor:pointer" class="logo" onclick="openNav()">&#9776; open </span>
-
-            <div class="header-right">
-                <a href="profile.php">
-                    <?php echo $fname . " " . $lname . " (" . strtoupper($eid) . ")" ?></a>
-            </div>
-        </div>
-        <div id="mySidenav" class="sidenav">
-            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-            <a href="index.php" class="logo"><span style="color:red;font-size:70px">CIMS</span></a>
-            <a href="profile.php"><?php echo $fname . " " . $lname . " (" . strtoupper($eid) . ")" ?></a>
+            <a href="index.php" class="logo"><span style="color:red;font-size:70px">OCTH</span></a>
             <a href="index.php">Home</a>
             <a href="student.php">Student</a>
             <a href="studentattendance.php">Student Attendance</a>
             <a href="teachers.php">Teachers</a>
             <a href="teachersattendance.php">Teachers Attendance</a>
             <a href="add.php">Add TimeTable/batch</a>
-            <a href="complaint.php">Complaint</a>
+            <a href="addvideo.php">AddVideo</a>
             <a href="incomingcomplaint.php">Incoming Complaint</a>
             <a href="update_password.php">Update Password</a>
+            <a href="profile.php"><?php echo $fname . " " . $lname . " (" . strtoupper($eid) . ")" ?></a>
             <a href="../../logout.php">Logout</a>
         </div>
 
@@ -80,7 +73,6 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
             <a href="add.php?addbatch=true" class="linking">Add Batch</a>
             <a href="add.php?addtimetable=true" class="linking">Add TimeTable</a>
             <a href="add.php?assignbatches=true" class="linking">Assign Teachers To Batch</a>
-            <a href="add.php?assignmentor=true" class="linking">Assign Mentor To Batch</a>
         </div>
 
         <?php
@@ -229,55 +221,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
                 }
             }
 
-        if(isset($_GET['assignmentor'])){?>
-              <div align="center">
-                  <h4>Assign Mentor To batch</h4>
-                  <form method="post">
-                  Batch:<input type="text" name="batch_get" placeholder="Enter Batch">
-                  EID:<input type="text" name="eid_get" placeholder="Enter Mentor ID">
-                  <input type="submit" name="assign_mentor" value="Assign Mentor">
-                  </form
-              </div>
-            <?php
-                if(isset($_POST['assign_mentor'])){
-                    $batch_get = $_POST['batch_get'];
-                    $eid_het = $_POST['eid_get'];
-
-                    $sql_find = "SELECT * FROM batches WHERE mentor='$eid_het' AND center='$center' AND course='$course'";
-                    $sql_find_wu = mysqli_query($conn,$sql_find);
-                    $num = mysqli_num_rows($sql_find_wu);
-                    if($num>0){
-                        echo '<script>alert("Already exists")</script>';
-                    }else{
-                        $inset = "UPDATE batches SET mentor ='$eid_het' WHERE batch='$batch_get'";
-                        $inset_q = mysqli_query($conn,$inset);
-                        $new_ins = "UPDATE students SET mentor='$eid_het' where batch='$batch_get'";
-                        $new_ins_q = mysqli_query($conn,$new_ins);
-                        $enw_ins = "UPDATE teachers SET position='mentor',batchmentor='$batch_get' WHERE eid='$eid_het'";
-                        $enw_ins_q = mysqli_query($conn,$enw_ins);
-                        if($enw_ins_q  AND $new_ins_q  AND $inset_q){
-                            echo '<script>alert("Successfully done")</script>';
-                            echo '<script>location.href="add.php"</script>';
-                        }else{
-                            echo '<script>alert("Something went wrong")</script>';
-                            echo '<script>location.href="add.php"</script>';
-                        }
-                    }
-                }
-
-            }
-
         ?>
-
-        <script>
-            function openNav() {
-                document.getElementById("mySidenav").style.width = "250px";
-            }
-
-            function closeNav() {
-                document.getElementById("mySidenav").style.width = "0";
-            }
-        </script>
         </body>
         </html>
         <?php

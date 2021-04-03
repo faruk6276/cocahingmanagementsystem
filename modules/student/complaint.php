@@ -10,9 +10,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
     if ($row = mysqli_fetch_assoc($result)) {
         $fname = ucfirst($row['fname']);
         $lname = ucfirst($row['lname']);
-        $course = $row['course'];
         $batch = $row['batch'];
-        $mentor = $row['mentor'];
     }
     $ydate = date('Y-m-d');
     $day = date("l");
@@ -29,22 +27,12 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
     <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Complaint-Students-CIMS</title>
+        <title>Complaint-Students-OCTH</title>
         <link rel="stylesheet" type="text/css" href="css/style.css">
     </head>
     <body>
     <div class="header">
-
-        <span style="font-size:30px;cursor:pointer" class="logo" onclick="openNav()">&#9776; open </span>
-
-        <div class="header-right">
-            <a href="profile.php">
-                <?php echo $fname . " " . $lname . " (" . strtoupper($sid) . ")" ?></a>
-        </div>
-    </div>
- <div id="mySidenav" class="sidenav">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a href="index.php" class="logo"><span style="color:red;font-size:70px">CIMS</span></a>
+        <a href="index.php" class="logo"><span style="color:red;font-size:70px">OCTH</span></a>
         <a href="profile.php"><?php echo $fname . " " . $lname . " (" . strtoupper($sid) . ")" ?></a>
         <a href="index.php">Home</a>
         <a href="attendance.php">Attendance</a>
@@ -65,7 +53,6 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
             <select name="teacher" required>
                 <option value="none">Select One</option>
                 <option value="admin">Admin</option>
-                <option value="mentor">Mentor</option>
             </select>
             <label for="subject" >Subject</label>
             <input type="text" name="subject" placeholder="Type Subject.." required>
@@ -81,7 +68,6 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
             <tr>
                 <th>S.No.</th>
                 <th>To Whom</th>
-                <th>EID</th>
                 <th>Subject</th>
                 <th>Date Of Complaint</th>
                 <th>Replied</th>
@@ -96,7 +82,6 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
                     $i++;
                     $id = $complaint_rows['id'];
                     $to_whom = $complaint_rows['teacher_type'];
-                    $eid_show = $complaint_rows['eid'];
                     $subject_show = $complaint_rows['subject'];
                     $date_of_complaint_show = $complaint_rows['dateofcomp'];
                     if($complaint_rows['replyed']=='1'){
@@ -110,7 +95,6 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
                     <tr style="color:white;background-color: <?php echo $color; ?>">
                         <th><?php echo $i;?></th>
                         <th><?php echo $to_whom; ?></th>
-                        <th><?php echo $eid_show; ?></th>
                         <th><?php echo $subject_show; ?></th>
                         <th><?php echo $date_of_complaint_show; ?></th>
                         <th><?php echo $yes; ?></th>
@@ -120,18 +104,8 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
                 }
             ?>
         </table>
-
+        
     </div>
-
-    <script>
-        function openNav() {
-            document.getElementById("mySidenav").style.width = "250px";
-        }
-
-        function closeNav() {
-            document.getElementById("mySidenav").style.width = "0";
-        }
-    </script>
     <style>
         input[type=text], select, textarea {
             width: 100%;
@@ -170,22 +144,18 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
 
     if(isset($_POST['submit'])){
         $teacher = $_POST['teacher'];
-        if($teacher=='admin'){
-            $eid = $admin_eid;
-        }else{
-            $eid = $mentor;
-        }
+        $eid = $admin_eid;
         $subject = $_POST['subject'];
         $compl = $_POST['complaint'];
         $date_of_complaint = date("Y-m-d");
-        $sql_comp = "INSERT INTO complaint (eid,teacher_type,username,batch,center,course,subject,complaint,dateofcomp) VALUES ('$eid','$teacher','$sid','$batch','$center','$course','$subject','$compl','$date_of_complaint')";
+        $sql_comp = "INSERT INTO complaint (eid,teacher_type,username,batch,subject,complaint,dateofcomp) VALUES ('$eid','$teacher','$sid','$batch','$subject','$compl','$date_of_complaint')";
         $sql_comp_result = mysqli_query($conn,$sql_comp);
         if($sql_comp_result){
             echo '<script>alert("Successful")</script>';
 
             echo '<script>location.href="complaint.php"</script>';
         }else{
-            echo '<script>alert("Contact Mentor")</script>';
+            echo '<script>alert("Failed")</script>';
 
             echo '<script>location.href="complaint.php"</script>';
         }

@@ -20,7 +20,6 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
         $position = $rows['position'];
         $subject = $rows['subject'];
         $status = $rows['status'];
-        $course = $rows['course'];
         if(isset($rows['highestqualification'])){
             $qual = $rows['highestqualification'];
             $mark = $rows['highestqualificationmarks'];
@@ -33,7 +32,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
     <!DOCTYPE html>
     <html>
     <head>
-        <title><?php echo $fname.' '.$lname ?>-Teachers-CIMS</title>
+        <title><?php echo $fname.' '.$lname ?>-Teachers-OCTH</title>
         <link rel="stylesheet" type="text/css" href="css/style.css">
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
@@ -48,18 +47,8 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
         </style>
     </head>
     <body>
-    <div class="header">
-
-        <span style="font-size:30px;cursor:pointer" class="logo" onclick="openNav()">&#9776; open </span>
-
-        <div class="header-right">
-            <a href="profile.php">
-                <?php echo $fname . " " . $lname . " (" . strtoupper($eid) . ")" ?></a>
-        </div>
-    </div>
-        <div id="mySidenav" class="sidenav">
-            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-            <a href="index.php" class="logo"><span style="color:red;font-size:70px">CIMS</span></a>
+        <div class="header">
+        <a href="index.php" class="logo"><span style="color:red;font-size:70px">CIMS</span></a>
             <a href="profile.php"><?php echo $fname . " " . $lname . " (" . strtoupper($eid) . ")" ?></a>
             <a href="index.php">Home</a>
             <a href="attendance.php">Attendance</a>

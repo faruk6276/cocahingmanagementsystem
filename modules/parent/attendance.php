@@ -10,40 +10,32 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
     if ($row = mysqli_fetch_assoc($result)) {
         $fname = ucfirst($row['fname']);
         $lname = ucfirst($row['lname']);
-        $course = $row['course'];
         $batch = $row['batch'];
     }
     $ydate = date('Y-m-d');
     ?>
     <!DOCTYPE html>
     <html>
-    <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Attendance-Parents-CIMS</title>
-        <link rel="stylesheet" type="text/css" href="css/style.css">
-    </head>
-    <body>
-    <div class="header">
-
-        <span style="font-size:30px;cursor:pointer" class="logo" onclick="openNav()">&#9776; open </span>
-
-        <div class="header-right">
-            <a href="../../logout.php">
-                <?php echo "Logout" ?></a>
+       <head>
+            
+            <title>Parents-OCTH</title>
+            <link rel="stylesheet" type="text/css" href="css/style.css">       
+            <link rel="stylesheet" href="../../css/bootstrap.min.css" />
+             <script src="../../js/jquery-3.3.1.min.js"></script>
+            <script src="../../js/bootstrap.min.js"></script>
+        </head>
+        <body>
+        <div class="header">
+            <a href="index.php" class="logo"><span style="color:red;font-size:70px">OCTH</span></a>
+            <a href="index.php">Home</a>
+            <a href="attendance.php">Attendance</a>
+            <a href="timetable.php">TimeTable</a>
+            <a href="marks.php">Marks</a>
+            <a href="fees.php">Fees</a>
+            <a href="video.php">Videos</a>
+            <a href="password_update.php">Update Password</a>
+            <a href="../../logout.php">Logout</a>
         </div>
-    </div>
-    <div id="mySidenav" class="sidenav">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a href="index.php" class="logo"><span style="color:red;font-size:70px">CIMS</span></a>
-        <a href="index.php">Home</a>
-        <a href="attendance.php">Attendance</a>
-        <a href="timetable.php">TimeTable</a>
-        <a href="marks.php">Marks</a>
-        <a href="fees.php">Fees</a>
-        <a href="complaint.php">Complaint</a>
-        <a href="password_update.php">Update Password</a>
-        <a href="../../logout.php">Logout</a>
-    </div>
     <div align="center" style="padding: 8px">
 
         <?php
@@ -115,15 +107,6 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
             <?php } ?>
         </table>
     </div>
-    <script>
-        function openNav() {
-            document.getElementById("mySidenav").style.width = "250px";
-        }
-
-        function closeNav() {
-            document.getElementById("mySidenav").style.width = "0";
-        }
-    </script>
     <style>
         input[type=date]{
             width: 15%;
